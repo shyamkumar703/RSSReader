@@ -14,6 +14,8 @@ struct EntryView: View {
     @State private var isShowingWebSheet = false
     @EnvironmentObject var session: SessionManager
     
+    let category: Category?
+    
     var body: some View {
         if let attrString = viewModel.generateAttributedText(for: feedEntry) {
             ScrollView {
@@ -45,7 +47,7 @@ struct EntryView: View {
             }
             .onAppear {
                 Task {
-                    await viewModel.markAsRead(for: feedEntry, with: session)
+                    await viewModel.markAsRead(for: feedEntry, with: session, category: category)
                 }
             }
         } else {
@@ -84,8 +86,8 @@ extension EntryView {
             return try? SwiftUI.AttributedString(attrString, including: \.uiKit)
         }
         
-        func markAsRead(for entry: FeedEntry, with session: SessionManager) async {
-             _ = await session.markAs(status: .read, item: entry)
+        func markAsRead(for entry: FeedEntry, with session: SessionManager, category: Category?) async {
+            _ = await session.markAs(status: .read, item: entry, category: category)
         }
     }
 }

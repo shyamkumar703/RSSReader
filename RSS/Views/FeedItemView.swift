@@ -12,6 +12,8 @@ struct FeedItemView: View {
     @State var feedItem: FeedEntry
     @StateObject var viewModel = ViewModel()
     
+    let category: Category?
+    
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
             // Star label here probably!!
@@ -81,7 +83,7 @@ struct FeedItemView: View {
                     // mark as unread (w/ API)
                     feedItem.status = .unread
                     Task {
-                        await viewModel.markAs(status: .unread, item: feedItem, with: session)
+                        await viewModel.markAs(status: .unread, item: feedItem, with: session, category: category)
                     }
                 } label: {
                     Label("Mark as unread", systemImage: "envelope.fill")
@@ -93,7 +95,7 @@ struct FeedItemView: View {
                     // mark as read (w/ API
                     feedItem.status = .read
                     Task {
-                        await viewModel.markAs(status: .read, item: feedItem, with: session)
+                        await viewModel.markAs(status: .read, item: feedItem, with: session, category: category)
                     }
                 } label: {
                     Label("Mark as read", systemImage: "envelope.open.fill")
@@ -107,8 +109,8 @@ struct FeedItemView: View {
 
 extension FeedItemView {
     @MainActor class ViewModel: ObservableObject {
-        func markAs(status: FeedEntry.Status, item: FeedEntry, with session: SessionManager) async {
-            _ = await session.markAs(status: status, item: item)
+        func markAs(status: FeedEntry.Status, item: FeedEntry, with session: SessionManager, category: Category?) async {
+            _ = await session.markAs(status: status, item: item, category: category)
         }
     }
 }

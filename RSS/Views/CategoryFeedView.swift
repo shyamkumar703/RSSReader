@@ -26,9 +26,9 @@ struct CategoryFeedView: View {
     
     var filteredFeed: [FeedEntry] {
         switch currentFilter {
-        case .all: return session.feed
-        case .unread: return session.feed.filter({ $0.status == .unread })
-        case .starred: return session.feed.filter({ $0.starred })
+        case .all: return session.feedFor(category: feedCategory)
+        case .unread: return session.feedFor(category: feedCategory).filter({ $0.status == .unread })
+        case .starred: return session.feedFor(category: feedCategory).filter({ $0.starred })
         }
     }
     
@@ -36,10 +36,10 @@ struct CategoryFeedView: View {
         List {
             ForEach(filteredFeed) { feedItem in
                 NavigationLink {
-                    EntryView(feedEntry: feedItem)
+                    EntryView(feedEntry: feedItem, category: feedCategory)
                         .environmentObject(session)
                 } label: {
-                    FeedItemView(feedItem: feedItem)
+                    FeedItemView(feedItem: feedItem, category: feedCategory)
                         .environmentObject(session)
                 }
             }

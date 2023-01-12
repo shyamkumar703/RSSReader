@@ -33,7 +33,7 @@ extension Feed {
         var title: String
         var userId: Int // user_id
         
-        static var example = Category(id: 2, title: "All", userId: 1)
+        static var example = Category(id: Int.min, title: "All", userId: 1)
         
         enum CodingKeys: String, CodingKey {
             case id
