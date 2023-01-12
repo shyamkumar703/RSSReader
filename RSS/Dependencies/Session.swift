@@ -17,11 +17,13 @@ protocol Session {
 
 @MainActor class SessionManager: ObservableObject {
     private var dependencies: AllDependencies
-    @Published var feed = [FeedEntry]()
     @Published var feedCategoryDictionary = [Category: [FeedEntry]]()
+    @Published var categories = [Category]()
     
     init(dependencies: AllDependencies) {
         self.dependencies = dependencies
+        self.categories = dependencies.localStorage.read(from: .categories, type: Array<Category>.self) ?? []
+        self.feedCategoryDictionary = dependencies.localStorage.read(from: .feedDictionary, type: [Category: [FeedEntry]].self) ?? [:]
     }
     
     func markAs(status: FeedEntry.Status, item: FeedEntry, category: Category?) async {
@@ -41,6 +43,8 @@ protocol Session {
                 } else {
                     feedCategoryDictionary[Category.example] = feedResponse.entries
                 }
+                
+                dependencies.localStorage.save(feedCategoryDictionary, for: .feedDictionary)
             }
         case .failure(let error):
             print("error: \(error)")
@@ -49,7 +53,16 @@ protocol Session {
     }
     
     func loadCategories() async -> Result<Array<Category>, RSSError>  {
-        return await dependencies.api.call(with: GetCategoriesRequest())
+        let result = await dependencies.api.call(with: GetCategoriesRequest())
+        switch result {
+        case .success(let categories):
+            let newCategories = categories.sorted().map({ Category(id: $0.id, title: $0.title.capitalized) })
+            withAnimation { self.categories = newCategories }
+            dependencies.localStorage.save(newCategories, for: .categories)
+        case .failure(let error):
+            print("Failure...\(error)")
+        }
+        return result
     }
     
     func feedFor(category: Category?) -> [FeedEntry] {

@@ -14,7 +14,7 @@ struct CategoriesView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.categories) { category in
+                ForEach(session.categories) { category in
                     NavigationLink {
                         if category.title.lowercased() != "all" {
                             CategoryFeedView(feedCategory: category)

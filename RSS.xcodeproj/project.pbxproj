@@ -33,6 +33,8 @@
 		013A1778296FC1B300661A44 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1777296FC1B300661A44 /* Encodable.swift */; };
 		013A177A296FC60700661A44 /* StarItemRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1779296FC60700661A44 /* StarItemRequest.swift */; };
 		013A177C297057A900661A44 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177B297057A900661A44 /* Session.swift */; };
+		013A177E2970636500661A44 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177D2970636500661A44 /* LocalStorage.swift */; };
+		013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		013A1777296FC1B300661A44 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		013A1779296FC60700661A44 /* StarItemRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarItemRequest.swift; sourceTree = "<group>"; };
 		013A177B297057A900661A44 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		013A177D2970636500661A44 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+DocumentsDirectory.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,7 @@
 				013A1756296F969600661A44 /* API */,
 				013A1763296FA10100661A44 /* AllDependencies.swift */,
 				013A177B297057A900661A44 /* Session.swift */,
+				013A177D2970636500661A44 /* LocalStorage.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 			children = (
 				013A1771296FB36B00661A44 /* WebView.swift */,
 				013A1777296FC1B300661A44 /* Encodable.swift */,
+				013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -383,10 +389,12 @@
 				013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */,
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
 				013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */,
+				013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */,
 				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
 				013A1772296FB36B00661A44 /* WebView.swift in Sources */,
 				013A1752296F93D600661A44 /* FeedEntry.swift in Sources */,
 				013A175E296F994B00661A44 /* API.swift in Sources */,
+				013A177E2970636500661A44 /* LocalStorage.swift in Sources */,
 				013A1764296FA10100661A44 /* AllDependencies.swift in Sources */,
 				013A177A296FC60700661A44 /* StarItemRequest.swift in Sources */,
 				013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */,
