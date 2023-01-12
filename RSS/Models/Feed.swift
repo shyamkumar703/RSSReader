@@ -26,19 +26,3 @@ struct Feed: Codable, Identifiable {
         case nextCheckAt = "next_check_at"
     }
 }
-
-extension Feed {
-    struct Category: Codable, Identifiable {
-        var id: Int
-        var title: String
-        var userId: Int // user_id
-        
-        static var example = Category(id: Int.min, title: "All", userId: 1)
-        
-        enum CodingKeys: String, CodingKey {
-            case id
-            case title
-            case userId = "user_id"
-        }
-    }
-}
