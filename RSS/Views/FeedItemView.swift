@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedItemView: View {
-    @EnvironmentObject var dependencies: Dependencies
+    @EnvironmentObject var session: SessionManager
     @State var feedItem: FeedEntry
     @StateObject var viewModel = ViewModel()
     
@@ -81,7 +81,7 @@ struct FeedItemView: View {
                     // mark as unread (w/ API)
                     feedItem.status = .unread
                     Task {
-                        await viewModel.markAs(status: .unread, item: feedItem, with: dependencies)
+                        await viewModel.markAs(status: .unread, item: feedItem, with: session)
                     }
                 } label: {
                     Label("Mark as unread", systemImage: "envelope.fill")
@@ -93,7 +93,7 @@ struct FeedItemView: View {
                     // mark as read (w/ API
                     feedItem.status = .read
                     Task {
-                        await viewModel.markAs(status: .read, item: feedItem, with: dependencies)
+                        await viewModel.markAs(status: .read, item: feedItem, with: session)
                     }
                 } label: {
                     Label("Mark as read", systemImage: "envelope.open.fill")
@@ -107,13 +107,8 @@ struct FeedItemView: View {
 
 extension FeedItemView {
     @MainActor class ViewModel: ObservableObject {
-        func markAs(status: FeedEntry.Status, item: FeedEntry, with dependencies: Dependencies) async {
-            _ = await dependencies.api.call(with: MarkItemRequest(entryIds: [item.id], status: status))
-        }
-        
-        func shouldStar(_ starred: Bool, item: FeedEntry, with dependencies: Dependencies) async {
-            let result = await dependencies.api.call(with: StarItemRequest(entryIds: [item.id], starred: starred))
-            print(result)
+        func markAs(status: FeedEntry.Status, item: FeedEntry, with session: SessionManager) async {
+            _ = await session.markAs(status: status, item: item)
         }
     }
 }

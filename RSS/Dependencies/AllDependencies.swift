@@ -13,6 +13,10 @@ protocol HasAPI {
     var api: API { get set }
 }
 
+protocol HasSession {
+    var session: Session { get set }
+}
+
 class Dependencies: AllDependencies, ObservableObject {
     var api: API = APIManager()
 }

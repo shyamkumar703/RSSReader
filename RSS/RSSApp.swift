@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct RSSApp: App {
-    @StateObject var dependencies = Dependencies()
+    @StateObject var session = SessionManager(dependencies: Dependencies())
     
     var body: some Scene {
         WindowGroup {
             CategoriesView()
-                .environmentObject(dependencies)
+                .environmentObject(session)
         }
     }
 }

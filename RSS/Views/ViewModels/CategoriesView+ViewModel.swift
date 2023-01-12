@@ -12,8 +12,8 @@ extension CategoriesView {
     @MainActor class ViewModel: ObservableObject {
         @Published var categories = [Category]()
         
-        func loadCategories(from dependencies: HasAPI) async {
-            let result = await dependencies.api.call(with: GetCategoriesRequest())
+        func loadCategories(from session: SessionManager) async {
+            let result = await session.loadCategories()
             switch result {
             case .success(let categories):
                 withAnimation {

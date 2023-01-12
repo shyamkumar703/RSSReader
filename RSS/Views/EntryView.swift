@@ -12,7 +12,7 @@ struct EntryView: View {
     let feedEntry: FeedEntry
     @StateObject private var viewModel = ViewModel()
     @State private var isShowingWebSheet = false
-    @EnvironmentObject var dependencies: Dependencies
+    @EnvironmentObject var session: SessionManager
     
     var body: some View {
         if let attrString = viewModel.generateAttributedText(for: feedEntry) {
@@ -45,7 +45,7 @@ struct EntryView: View {
             }
             .onAppear {
                 Task {
-                    await viewModel.markAsRead(for: feedEntry, with: dependencies)
+                    await viewModel.markAsRead(for: feedEntry, with: session)
                 }
             }
         } else {
@@ -84,8 +84,8 @@ extension EntryView {
             return try? SwiftUI.AttributedString(attrString, including: \.uiKit)
         }
         
-        func markAsRead(for entry: FeedEntry, with dependencies: Dependencies) async {
-            _ = await dependencies.api.call(with: MarkItemRequest(entryIds: [entry.id], status: .read))
+        func markAsRead(for entry: FeedEntry, with session: SessionManager) async {
+             _ = await session.markAs(status: .read, item: entry)
         }
     }
 }

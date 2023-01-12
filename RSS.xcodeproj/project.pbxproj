@@ -32,6 +32,7 @@
 		013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1775296FBFE500661A44 /* MarkItemRequest.swift */; };
 		013A1778296FC1B300661A44 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1777296FC1B300661A44 /* Encodable.swift */; };
 		013A177A296FC60700661A44 /* StarItemRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1779296FC60700661A44 /* StarItemRequest.swift */; };
+		013A177C297057A900661A44 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177B297057A900661A44 /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		013A1775296FBFE500661A44 /* MarkItemRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkItemRequest.swift; sourceTree = "<group>"; };
 		013A1777296FC1B300661A44 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		013A1779296FC60700661A44 /* StarItemRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarItemRequest.swift; sourceTree = "<group>"; };
+		013A177B297057A900661A44 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 			children = (
 				013A1756296F969600661A44 /* API */,
 				013A1763296FA10100661A44 /* AllDependencies.swift */,
+				013A177B297057A900661A44 /* Session.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				013A177C297057A900661A44 /* Session.swift in Sources */,
 				013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */,
 				013A1778296FC1B300661A44 /* Encodable.swift in Sources */,
 				013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */,

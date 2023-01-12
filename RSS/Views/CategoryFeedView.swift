@@ -14,7 +14,7 @@ struct CategoryFeedView: View {
         case all = "All"
     }
     
-    @EnvironmentObject var dependencies: Dependencies
+    @EnvironmentObject var session: SessionManager
     @StateObject var viewModel = ViewModel()
     @State var currentFilter = FilterOptions.unread
     @Environment(\.refresh) var refresh
@@ -26,9 +26,9 @@ struct CategoryFeedView: View {
     
     var filteredFeed: [FeedEntry] {
         switch currentFilter {
-        case .all: return viewModel.feed
-        case .unread: return viewModel.feed.filter({ $0.status == .unread })
-        case .starred: return viewModel.feed.filter({ $0.starred })
+        case .all: return session.feed
+        case .unread: return session.feed.filter({ $0.status == .unread })
+        case .starred: return session.feed.filter({ $0.starred })
         }
     }
     
@@ -37,20 +37,20 @@ struct CategoryFeedView: View {
             ForEach(filteredFeed) { feedItem in
                 NavigationLink {
                     EntryView(feedEntry: feedItem)
-                        .environmentObject(dependencies)
+                        .environmentObject(session)
                 } label: {
                     FeedItemView(feedItem: feedItem)
-                        .environmentObject(dependencies)
+                        .environmentObject(session)
                 }
             }
         }
         .refreshable {
-            await viewModel.loadFeed(for: feedCategory, with: dependencies)
+            await viewModel.loadFeed(for: feedCategory, with: session)
         }
         .navigationTitle(feedCategory?.title ?? "All")
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            await viewModel.loadFeed(for: feedCategory, with: dependencies)
+            await viewModel.loadFeed(for: feedCategory, with: session)
         }
         .toolbar {
             Picker(currentFilter.rawValue, selection: $currentFilter) {
@@ -76,6 +76,6 @@ struct CategoryFeedView: View {
 struct CategoryFeedView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryFeedView(feedCategory: nil)
-            .environmentObject(Dependencies())
+            .environmentObject(SessionManager(dependencies: Dependencies()))
     }
 }

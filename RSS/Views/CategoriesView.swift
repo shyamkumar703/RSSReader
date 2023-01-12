@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategoriesView: View {
-    @EnvironmentObject var dependencies: Dependencies
+    @EnvironmentObject var session: SessionManager
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
@@ -39,7 +39,7 @@ struct CategoriesView: View {
             }
             .navigationTitle("Categories")
             .task {
-                await viewModel.loadCategories(from: dependencies)
+                await viewModel.loadCategories(from: session)
             }
         }
     }
@@ -61,6 +61,6 @@ struct CategoriesView: View {
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         CategoriesView()
-            .environmentObject(Dependencies())
+            .environmentObject(SessionManager(dependencies: Dependencies()))
     }
 }
