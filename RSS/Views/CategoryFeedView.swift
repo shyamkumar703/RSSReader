@@ -33,14 +33,24 @@ struct CategoryFeedView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(filteredFeed) { feedItem in
-                NavigationLink {
-                    EntryView(feedEntry: feedItem, category: feedCategory)
-                        .environmentObject(session)
-                } label: {
-                    FeedItemView(feedItem: feedItem, category: feedCategory)
-                        .environmentObject(session)
+        Group {
+            if viewModel.isLoading {
+                ProgressView()
+                    .padding()
+            } else if filteredFeed.isEmpty {
+                Text("Nothing here yet")
+                    .foregroundColor(.secondary)
+            } else {
+                List {
+                    ForEach(filteredFeed) { feedItem in
+                        NavigationLink {
+                            EntryView(feedEntry: feedItem, category: feedCategory)
+                                .environmentObject(session)
+                        } label: {
+                            FeedItemView(feedItem: feedItem, category: feedCategory)
+                                .environmentObject(session)
+                        }
+                    }
                 }
             }
         }
