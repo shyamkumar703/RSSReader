@@ -28,6 +28,10 @@
 		013A176C296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A176B296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift */; };
 		013A176E296FAF2100661A44 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A176D296FAF2100661A44 /* EntryView.swift */; };
 		013A1772296FB36B00661A44 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1771296FB36B00661A44 /* WebView.swift */; };
+		013A1774296FBC0500661A44 /* FeedItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1773296FBC0500661A44 /* FeedItemView.swift */; };
+		013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1775296FBFE500661A44 /* MarkItemRequest.swift */; };
+		013A1778296FC1B300661A44 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1777296FC1B300661A44 /* Encodable.swift */; };
+		013A177A296FC60700661A44 /* StarItemRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1779296FC60700661A44 /* StarItemRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,10 @@
 		013A176B296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryFeedView+ViewModel.swift"; sourceTree = "<group>"; };
 		013A176D296FAF2100661A44 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		013A1771296FB36B00661A44 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		013A1773296FBC0500661A44 /* FeedItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemView.swift; sourceTree = "<group>"; };
+		013A1775296FBFE500661A44 /* MarkItemRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkItemRequest.swift; sourceTree = "<group>"; };
+		013A1777296FC1B300661A44 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
+		013A1779296FC60700661A44 /* StarItemRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarItemRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +200,8 @@
 			children = (
 				013A175B296F98E200661A44 /* GetFeedRequest.swift */,
 				013A1761296FA07800661A44 /* GetCategoriesRequest.swift */,
+				013A1775296FBFE500661A44 /* MarkItemRequest.swift */,
+				013A1779296FC60700661A44 /* StarItemRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -202,6 +212,7 @@
 				013A1766296FA24B00661A44 /* ViewModels */,
 				013A1725296F8CFB00661A44 /* CategoriesView.swift */,
 				013A1769296FA89300661A44 /* CategoryFeedView.swift */,
+				013A1773296FBC0500661A44 /* FeedItemView.swift */,
 				013A176D296FAF2100661A44 /* EntryView.swift */,
 			);
 			path = Views;
@@ -220,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				013A1771296FB36B00661A44 /* WebView.swift */,
+				013A1777296FC1B300661A44 /* Encodable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -361,8 +373,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */,
+				013A1778296FC1B300661A44 /* Encodable.swift in Sources */,
 				013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */,
 				013A1754296F94C000661A44 /* Feed.swift in Sources */,
+				013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */,
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
 				013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */,
 				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
@@ -370,7 +384,9 @@
 				013A1752296F93D600661A44 /* FeedEntry.swift in Sources */,
 				013A175E296F994B00661A44 /* API.swift in Sources */,
 				013A1764296FA10100661A44 /* AllDependencies.swift in Sources */,
+				013A177A296FC60700661A44 /* StarItemRequest.swift in Sources */,
 				013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */,
+				013A1774296FBC0500661A44 /* FeedItemView.swift in Sources */,
 				013A176C296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift in Sources */,
 				013A176E296FAF2100661A44 /* EntryView.swift in Sources */,
 				013A176A296FA89300661A44 /* CategoryFeedView.swift in Sources */,

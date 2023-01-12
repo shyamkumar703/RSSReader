@@ -8,53 +8,54 @@
 import SwiftUI
 
 struct CategoryFeedView: View {
+    enum FilterOptions: String, CaseIterable {
+        case unread = "Unread"
+        case starred = "Starred"
+        case all = "All"
+    }
+    
     @EnvironmentObject var dependencies: Dependencies
     @StateObject var viewModel = ViewModel()
+    @State var currentFilter = FilterOptions.unread
+    @Environment(\.refresh) var refresh
     let feedCategory: Category?
+    
     var firstChar: Character {
         feedCategory?.title.first ?? "A"
     }
     
+    var filteredFeed: [FeedEntry] {
+        switch currentFilter {
+        case .all: return viewModel.feed
+        case .unread: return viewModel.feed.filter({ $0.status == .unread })
+        case .starred: return viewModel.feed.filter({ $0.starred })
+        }
+    }
+    
     var body: some View {
         List {
-            ForEach(viewModel.feed) { feedItem in
+            ForEach(filteredFeed) { feedItem in
                 NavigationLink {
                     EntryView(feedEntry: feedItem)
+                        .environmentObject(dependencies)
                 } label: {
-                    HStack(alignment: .top) {
-                        // Star label here probably!!
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(feedItem.title)
-                                .font(.subheadline)
-                            
-                            if !feedItem.author.isEmpty {
-                                Text(feedItem.author)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                    .lineLimit(2)
-                            }
-                            
-                            Text(feedItem.feed.title)
-                                .font(.caption)
-                                .foregroundColor(.secondary.opacity(0.75))
-                        }
-                    }
+                    FeedItemView(feedItem: feedItem)
+                        .environmentObject(dependencies)
                 }
             }
         }
+        .refreshable {
+            await viewModel.loadFeed(for: feedCategory, with: dependencies)
+        }
         .navigationTitle(feedCategory?.title ?? "All")
         .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                Text(String(firstChar).capitalized)
-//                    .frame(width: 24, height: 24)
-//                    .foregroundColor(.white)
-//                    .font(.subheadline)
-//                    .background(colorFor(char: firstChar))
-//                    .clipShape(RoundedRectangle(cornerRadius: 6))
-//            }
         .task {
             await viewModel.loadFeed(for: feedCategory, with: dependencies)
+        }
+        .toolbar {
+            Picker(currentFilter.rawValue, selection: $currentFilter) {
+                ForEach(FilterOptions.allCases, id: \.self) { Text($0.rawValue) }
+            }
         }
     }
     

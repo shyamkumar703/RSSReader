@@ -28,8 +28,16 @@ class APIManager: API {
         urlRequest.addValue("Basic \(authHeader)", forHTTPHeaderField: "Authorization")
         urlRequest.httpMethod = request.method.rawValue
         
+        if RequestType.BodyType.self != NoBody.self,
+           let bodyData = request.body.data {
+            urlRequest.httpBody = bodyData
+        }
+        
         do {
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
+            if RequestType.ResponseType.self == IgnoreResponse.self {
+                return .success(IgnoreResponse() as! RequestType.ResponseType)
+            }
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = request.dateDecodingStrategy
             let decodedObject = try! decoder.decode(RequestType.ResponseType.self, from: data)

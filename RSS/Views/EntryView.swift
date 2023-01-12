@@ -12,6 +12,7 @@ struct EntryView: View {
     let feedEntry: FeedEntry
     @StateObject private var viewModel = ViewModel()
     @State private var isShowingWebSheet = false
+    @EnvironmentObject var dependencies: Dependencies
     
     var body: some View {
         if let attrString = viewModel.generateAttributedText(for: feedEntry) {
@@ -41,6 +42,11 @@ struct EntryView: View {
             .sheet(isPresented: $isShowingWebSheet) {
                 WebView(url: URL(string: feedEntry.url)!)
                     .padding(0)
+            }
+            .onAppear {
+                Task {
+                    await viewModel.markAsRead(for: feedEntry, with: dependencies)
+                }
             }
         } else {
             Text("Whoops")
@@ -76,6 +82,10 @@ extension EntryView {
             
             let attrString = entry.content.set(style: group)
             return try? SwiftUI.AttributedString(attrString, including: \.uiKit)
+        }
+        
+        func markAsRead(for entry: FeedEntry, with dependencies: Dependencies) async {
+            _ = await dependencies.api.call(with: MarkItemRequest(entryIds: [entry.id], status: .read))
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 struct GetFeedRequest: Request {
     typealias ResponseType = FeedResponse
     var method: Method = .GET
-    var path: String = "entries?status=unread&direction=desc"
+    var path: String = "entries?direction=desc"
     
     init(categoryId: Int? = nil) {
         if let categoryId = categoryId {

@@ -7,14 +7,20 @@
 
 import Foundation
 
+struct NoBody: Codable {}
+
 protocol Request {
     associatedtype ResponseType: Codable
+    associatedtype BodyType: Codable
     var method: Method { get }
     var path: String { get }
     var dateDecodingStrategy: Foundation.JSONDecoder.DateDecodingStrategy { get }
+    var body: BodyType { get }
 }
 
 extension Request {
+    var body: NoBody { NoBody() }
+    
     var dateDecodingStrategy: Foundation.JSONDecoder.DateDecodingStrategy {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
