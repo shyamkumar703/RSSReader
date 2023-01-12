@@ -8,12 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1723296F8CFB00661A44 /* RSSApp.swift */; };
-		013A1726296F8CFB00661A44 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1725296F8CFB00661A44 /* ContentView.swift */; };
+		013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1725296F8CFB00661A44 /* CategoriesView.swift */; };
 		013A1728296F8CFC00661A44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013A1727296F8CFC00661A44 /* Assets.xcassets */; };
 		013A172B296F8CFC00661A44 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013A172A296F8CFC00661A44 /* Preview Assets.xcassets */; };
 		013A1735296F8CFC00661A44 /* RSSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1734296F8CFC00661A44 /* RSSTests.swift */; };
 		013A173F296F8CFC00661A44 /* RSSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A173E296F8CFC00661A44 /* RSSUITests.swift */; };
 		013A1741296F8CFC00661A44 /* RSSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1740296F8CFC00661A44 /* RSSUITestsLaunchTests.swift */; };
+		013A174F296F8D5000661A44 /* SwiftRichString in Frameworks */ = {isa = PBXBuildFile; productRef = 013A174E296F8D5000661A44 /* SwiftRichString */; };
+		013A1752296F93D600661A44 /* FeedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1751296F93D600661A44 /* FeedEntry.swift */; };
+		013A1754296F94C000661A44 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1753296F94C000661A44 /* Feed.swift */; };
+		013A1759296F96A700661A44 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1758296F96A700661A44 /* Request.swift */; };
+		013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A175B296F98E200661A44 /* GetFeedRequest.swift */; };
+		013A175E296F994B00661A44 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A175D296F994B00661A44 /* API.swift */; };
+		013A1760296FA03300661A44 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A175F296FA03300661A44 /* Category.swift */; };
+		013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1761296FA07800661A44 /* GetCategoriesRequest.swift */; };
+		013A1764296FA10100661A44 /* AllDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1763296FA10100661A44 /* AllDependencies.swift */; };
+		013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1767296FA25800661A44 /* CategoriesView+ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +46,7 @@
 /* Begin PBXFileReference section */
 		013A1720296F8CFB00661A44 /* RSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013A1723296F8CFB00661A44 /* RSSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSApp.swift; sourceTree = "<group>"; };
-		013A1725296F8CFB00661A44 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		013A1725296F8CFB00661A44 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		013A1727296F8CFC00661A44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		013A172A296F8CFC00661A44 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		013A1730296F8CFC00661A44 /* RSSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +54,15 @@
 		013A173A296F8CFC00661A44 /* RSSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		013A173E296F8CFC00661A44 /* RSSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSUITests.swift; sourceTree = "<group>"; };
 		013A1740296F8CFC00661A44 /* RSSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		013A1751296F93D600661A44 /* FeedEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEntry.swift; sourceTree = "<group>"; };
+		013A1753296F94C000661A44 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		013A1758296F96A700661A44 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		013A175B296F98E200661A44 /* GetFeedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFeedRequest.swift; sourceTree = "<group>"; };
+		013A175D296F994B00661A44 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		013A175F296FA03300661A44 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		013A1761296FA07800661A44 /* GetCategoriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoriesRequest.swift; sourceTree = "<group>"; };
+		013A1763296FA10100661A44 /* AllDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDependencies.swift; sourceTree = "<group>"; };
+		013A1767296FA25800661A44 /* CategoriesView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoriesView+ViewModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				013A174F296F8D5000661A44 /* SwiftRichString in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +115,9 @@
 			isa = PBXGroup;
 			children = (
 				013A1723296F8CFB00661A44 /* RSSApp.swift */,
-				013A1725296F8CFB00661A44 /* ContentView.swift */,
+				013A1765296FA23000661A44 /* Views */,
+				013A1755296F968300661A44 /* Dependencies */,
+				013A1750296F93C900661A44 /* Models */,
 				013A1727296F8CFC00661A44 /* Assets.xcassets */,
 				013A1729296F8CFC00661A44 /* Preview Content */,
 			);
@@ -127,6 +149,61 @@
 			path = RSSUITests;
 			sourceTree = "<group>";
 		};
+		013A1750296F93C900661A44 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				013A1751296F93D600661A44 /* FeedEntry.swift */,
+				013A1753296F94C000661A44 /* Feed.swift */,
+				013A175F296FA03300661A44 /* Category.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		013A1755296F968300661A44 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				013A1756296F969600661A44 /* API */,
+				013A1763296FA10100661A44 /* AllDependencies.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		013A1756296F969600661A44 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				013A1758296F96A700661A44 /* Request.swift */,
+				013A175A296F98D200661A44 /* Requests */,
+				013A175D296F994B00661A44 /* API.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		013A175A296F98D200661A44 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				013A175B296F98E200661A44 /* GetFeedRequest.swift */,
+				013A1761296FA07800661A44 /* GetCategoriesRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		013A1765296FA23000661A44 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				013A1766296FA24B00661A44 /* ViewModels */,
+				013A1725296F8CFB00661A44 /* CategoriesView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		013A1766296FA24B00661A44 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				013A1767296FA25800661A44 /* CategoriesView+ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +220,9 @@
 			dependencies = (
 			);
 			name = RSS;
+			packageProductDependencies = (
+				013A174E296F8D5000661A44 /* SwiftRichString */,
+			);
 			productName = RSS;
 			productReference = 013A1720296F8CFB00661A44 /* RSS.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +295,9 @@
 				Base,
 			);
 			mainGroup = 013A1717296F8CFB00661A44;
+			packageReferences = (
+				013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */,
+			);
 			productRefGroup = 013A1721296F8CFB00661A44 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +340,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				013A1726296F8CFB00661A44 /* ContentView.swift in Sources */,
+				013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */,
+				013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */,
+				013A1754296F94C000661A44 /* Feed.swift in Sources */,
+				013A1759296F96A700661A44 /* Request.swift in Sources */,
 				013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */,
+				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
+				013A1752296F93D600661A44 /* FeedEntry.swift in Sources */,
+				013A175E296F994B00661A44 /* API.swift in Sources */,
+				013A1764296FA10100661A44 /* AllDependencies.swift in Sources */,
+				013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */,
+				013A1760296FA03300661A44 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +675,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftRichString";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		013A174E296F8D5000661A44 /* SwiftRichString */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */;
+			productName = SwiftRichString;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 013A1718296F8CFB00661A44 /* Project object */;
 }
