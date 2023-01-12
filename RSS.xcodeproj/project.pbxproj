@@ -24,6 +24,10 @@
 		013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1761296FA07800661A44 /* GetCategoriesRequest.swift */; };
 		013A1764296FA10100661A44 /* AllDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1763296FA10100661A44 /* AllDependencies.swift */; };
 		013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1767296FA25800661A44 /* CategoriesView+ViewModel.swift */; };
+		013A176A296FA89300661A44 /* CategoryFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1769296FA89300661A44 /* CategoryFeedView.swift */; };
+		013A176C296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A176B296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift */; };
+		013A176E296FAF2100661A44 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A176D296FAF2100661A44 /* EntryView.swift */; };
+		013A1772296FB36B00661A44 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1771296FB36B00661A44 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		013A1761296FA07800661A44 /* GetCategoriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoriesRequest.swift; sourceTree = "<group>"; };
 		013A1763296FA10100661A44 /* AllDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDependencies.swift; sourceTree = "<group>"; };
 		013A1767296FA25800661A44 /* CategoriesView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoriesView+ViewModel.swift"; sourceTree = "<group>"; };
+		013A1769296FA89300661A44 /* CategoryFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFeedView.swift; sourceTree = "<group>"; };
+		013A176B296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryFeedView+ViewModel.swift"; sourceTree = "<group>"; };
+		013A176D296FAF2100661A44 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		013A1771296FB36B00661A44 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				013A1723296F8CFB00661A44 /* RSSApp.swift */,
+				013A1770296FB35A00661A44 /* Utils */,
 				013A1765296FA23000661A44 /* Views */,
 				013A1755296F968300661A44 /* Dependencies */,
 				013A1750296F93C900661A44 /* Models */,
@@ -192,6 +201,8 @@
 			children = (
 				013A1766296FA24B00661A44 /* ViewModels */,
 				013A1725296F8CFB00661A44 /* CategoriesView.swift */,
+				013A1769296FA89300661A44 /* CategoryFeedView.swift */,
+				013A176D296FAF2100661A44 /* EntryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,8 +211,17 @@
 			isa = PBXGroup;
 			children = (
 				013A1767296FA25800661A44 /* CategoriesView+ViewModel.swift */,
+				013A176B296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		013A1770296FB35A00661A44 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				013A1771296FB36B00661A44 /* WebView.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,10 +366,14 @@
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
 				013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */,
 				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
+				013A1772296FB36B00661A44 /* WebView.swift in Sources */,
 				013A1752296F93D600661A44 /* FeedEntry.swift in Sources */,
 				013A175E296F994B00661A44 /* API.swift in Sources */,
 				013A1764296FA10100661A44 /* AllDependencies.swift in Sources */,
 				013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */,
+				013A176C296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift in Sources */,
+				013A176E296FAF2100661A44 /* EntryView.swift in Sources */,
+				013A176A296FA89300661A44 /* CategoryFeedView.swift in Sources */,
 				013A1760296FA03300661A44 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

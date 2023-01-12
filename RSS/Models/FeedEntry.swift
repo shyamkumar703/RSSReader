@@ -35,6 +35,7 @@ struct FeedEntry: Codable, Identifiable {
     var starred: Bool
     var readingTime: Int?
     var feed: Feed
+    var content: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -53,5 +54,6 @@ struct FeedEntry: Codable, Identifiable {
         case starred
         case readingTime
         case feed
+        case content
     }
 }

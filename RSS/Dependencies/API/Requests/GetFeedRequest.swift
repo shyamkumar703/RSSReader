@@ -11,4 +11,10 @@ struct GetFeedRequest: Request {
     typealias ResponseType = FeedResponse
     var method: Method = .GET
     var path: String = "entries?status=unread&direction=desc"
+    
+    init(categoryId: Int? = nil) {
+        if let categoryId = categoryId {
+            path += "&category_id=\(categoryId)"
+        }
+    }
 }

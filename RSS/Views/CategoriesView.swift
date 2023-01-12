@@ -16,7 +16,11 @@ struct CategoriesView: View {
             List {
                 ForEach(viewModel.categories) { category in
                     NavigationLink {
-                        Text("View to be pushed here!!")
+                        if category.title.lowercased() != "all" {
+                            CategoryFeedView(feedCategory: category)
+                        } else {
+                            CategoryFeedView(feedCategory: nil)
+                        }
                     } label: {
                         HStack(alignment: .center, spacing: 16) {
                             if let first = category.title.first {
