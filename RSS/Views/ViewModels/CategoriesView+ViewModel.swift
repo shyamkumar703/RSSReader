@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension CategoriesView {
     @MainActor class ViewModel: ObservableObject {
@@ -15,7 +16,9 @@ extension CategoriesView {
             let result = await dependencies.api.call(with: GetCategoriesRequest())
             switch result {
             case .success(let categories):
-                self.categories = categories.sorted()
+                withAnimation {
+                    self.categories = categories.sorted()
+                }
             case .failure(let error):
                 print(error)
             }
