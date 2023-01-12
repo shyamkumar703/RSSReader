@@ -10,6 +10,7 @@ import SwiftUI
 struct CategoriesView: View {
     @EnvironmentObject var session: SessionManager
     @StateObject var viewModel = ViewModel()
+    @State var isSheetShowing = false
     
     var body: some View {
         NavigationView {
@@ -40,6 +41,18 @@ struct CategoriesView: View {
             .navigationTitle("Categories")
             .task {
                 await viewModel.loadCategories(from: session)
+            }
+            .toolbar {
+                Button {
+                    // toggle sheet
+                    isSheetShowing = true
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+            .sheet(isPresented: $isSheetShowing) {
+                SettingsView(shouldUseNativeViewer: session.dependencies.localStorage.readShouldUseNativeHTMLViewer())
+                    .environmentObject(session)
             }
         }
     }

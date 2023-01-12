@@ -16,7 +16,7 @@ protocol Session {
 }
 
 @MainActor class SessionManager: ObservableObject {
-    private var dependencies: AllDependencies
+    var dependencies: AllDependencies
     @Published var feedCategoryDictionary = [Category: [FeedEntry]]()
     @Published var categories = [Category]()
     

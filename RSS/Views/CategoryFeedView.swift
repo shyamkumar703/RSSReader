@@ -44,8 +44,17 @@ struct CategoryFeedView: View {
                 List {
                     ForEach(filteredFeed) { feedItem in
                         NavigationLink {
-                            EntryView(feedEntry: feedItem, category: feedCategory)
-                                .environmentObject(session)
+                            if session.dependencies.localStorage.readShouldUseNativeHTMLViewer() {
+                                EntryView(feedEntry: feedItem, category: feedCategory)
+                                    .environmentObject(session)
+                            } else {
+                                NavigationView {
+                                    WebView(url: URL(string: feedItem.url)!)
+                                    
+                                }
+                                .task { await session.markAs(status: .read, item: feedItem, category: feedCategory) }
+                                .navigationBarTitleDisplayMode(.inline)
+                            }
                         } label: {
                             FeedItemView(feedItem: feedItem, category: feedCategory)
                                 .environmentObject(session)

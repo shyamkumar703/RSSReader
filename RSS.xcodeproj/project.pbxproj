@@ -35,6 +35,7 @@
 		013A177C297057A900661A44 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177B297057A900661A44 /* Session.swift */; };
 		013A177E2970636500661A44 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177D2970636500661A44 /* LocalStorage.swift */; };
 		013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */; };
+		013A1784297069B800661A44 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1783297069B800661A44 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		013A177B297057A900661A44 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		013A177D2970636500661A44 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+DocumentsDirectory.swift"; sourceTree = "<group>"; };
+		013A1783297069B800661A44 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 				013A1769296FA89300661A44 /* CategoryFeedView.swift */,
 				013A1773296FBC0500661A44 /* FeedItemView.swift */,
 				013A176D296FAF2100661A44 /* EntryView.swift */,
+				013A1783297069B800661A44 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				013A177C297057A900661A44 /* Session.swift in Sources */,
+				013A1784297069B800661A44 /* SettingsView.swift in Sources */,
 				013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */,
 				013A1778296FC1B300661A44 /* Encodable.swift in Sources */,
 				013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */,

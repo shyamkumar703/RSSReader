@@ -19,9 +19,13 @@ enum Key: String {
 protocol LocalStorage {
     func save<T: Codable>(_ obj: T, for key: Key)
     func read<T: Codable>(from key: Key, type: T.Type) -> T?
+    func save(shouldUseNativeHTMLViewer: Bool)
+    func readShouldUseNativeHTMLViewer() -> Bool
 }
 
 class LocalStorageManager: LocalStorage {
+    var shouldUseNativeHTMLViewerKey = "ShouldUseNativeHTMLViewer"
+    
     func save<T: Codable>(_ obj: T, for key: Key) {
         do {
             let data = try JSONEncoder().encode(obj)
@@ -38,6 +42,19 @@ class LocalStorageManager: LocalStorage {
             return object
         } catch {
             return nil
+        }
+    }
+    
+    func save(shouldUseNativeHTMLViewer: Bool) {
+        UserDefaults.standard.set(shouldUseNativeHTMLViewer, forKey: shouldUseNativeHTMLViewerKey)
+    }
+    
+    func readShouldUseNativeHTMLViewer() -> Bool {
+        if UserDefaults.standard.object(forKey: shouldUseNativeHTMLViewerKey) ==  nil {
+            save(shouldUseNativeHTMLViewer: true)
+            return true
+        } else {
+            return UserDefaults.standard.bool(forKey: shouldUseNativeHTMLViewerKey)
         }
     }
 }
