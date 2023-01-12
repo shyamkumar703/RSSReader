@@ -25,7 +25,7 @@ struct SettingsView: View {
                 List {
                     Section("Settings") {
                         HStack {
-                            Text("Use native HTML viewer")
+                            Text("Use in-app HTML viewer")
                             Spacer()
                             Toggle("Use native HTML viewer", isOn: $shouldUseNativeViewer)
                                 .labelsHidden()
