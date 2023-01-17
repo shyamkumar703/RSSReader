@@ -36,6 +36,8 @@
 		013A177E2970636500661A44 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177D2970636500661A44 /* LocalStorage.swift */; };
 		013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */; };
 		013A1784297069B800661A44 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1783297069B800661A44 /* SettingsView.swift */; };
+		013A17C12971B0E100661A44 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A17C02971B0E100661A44 /* String.swift */; };
+		017CF70B2977219E00ACBFD0 /* RichText in Frameworks */ = {isa = PBXBuildFile; productRef = 017CF70A2977219E00ACBFD0 /* RichText */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,7 @@
 		013A177D2970636500661A44 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		013A1783297069B800661A44 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		013A17C02971B0E100661A44 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				013A174F296F8D5000661A44 /* SwiftRichString in Frameworks */,
+				017CF70B2977219E00ACBFD0 /* RichText in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +248,7 @@
 				013A1771296FB36B00661A44 /* WebView.swift */,
 				013A1777296FC1B300661A44 /* Encodable.swift */,
 				013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */,
+				013A17C02971B0E100661A44 /* String.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 			name = RSS;
 			packageProductDependencies = (
 				013A174E296F8D5000661A44 /* SwiftRichString */,
+				017CF70A2977219E00ACBFD0 /* RichText */,
 			);
 			productName = RSS;
 			productReference = 013A1720296F8CFB00661A44 /* RSS.app */;
@@ -341,6 +347,7 @@
 			mainGroup = 013A1717296F8CFB00661A44;
 			packageReferences = (
 				013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */,
+				017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */,
 			);
 			productRefGroup = 013A1721296F8CFB00661A44 /* Products */;
 			projectDirPath = "";
@@ -397,6 +404,7 @@
 				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
 				013A1772296FB36B00661A44 /* WebView.swift in Sources */,
 				013A1752296F93D600661A44 /* FeedEntry.swift in Sources */,
+				013A17C12971B0E100661A44 /* String.swift in Sources */,
 				013A175E296F994B00661A44 /* API.swift in Sources */,
 				013A177E2970636500661A44 /* LocalStorage.swift in Sources */,
 				013A1764296FA10100661A44 /* AllDependencies.swift in Sources */,
@@ -741,6 +749,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NuPlay/RichText";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -748,6 +764,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */;
 			productName = SwiftRichString;
+		};
+		017CF70A2977219E00ACBFD0 /* RichText */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */;
+			productName = RichText;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
