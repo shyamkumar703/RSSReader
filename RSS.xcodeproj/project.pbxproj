@@ -14,7 +14,6 @@
 		013A1735296F8CFC00661A44 /* RSSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1734296F8CFC00661A44 /* RSSTests.swift */; };
 		013A173F296F8CFC00661A44 /* RSSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A173E296F8CFC00661A44 /* RSSUITests.swift */; };
 		013A1741296F8CFC00661A44 /* RSSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1740296F8CFC00661A44 /* RSSUITestsLaunchTests.swift */; };
-		013A174F296F8D5000661A44 /* SwiftRichString in Frameworks */ = {isa = PBXBuildFile; productRef = 013A174E296F8D5000661A44 /* SwiftRichString */; };
 		013A1752296F93D600661A44 /* FeedEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1751296F93D600661A44 /* FeedEntry.swift */; };
 		013A1754296F94C000661A44 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1753296F94C000661A44 /* Feed.swift */; };
 		013A1759296F96A700661A44 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1758296F96A700661A44 /* Request.swift */; };
@@ -97,7 +96,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				013A174F296F8D5000661A44 /* SwiftRichString in Frameworks */,
 				017CF70B2977219E00ACBFD0 /* RichText in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,7 +268,6 @@
 			);
 			name = RSS;
 			packageProductDependencies = (
-				013A174E296F8D5000661A44 /* SwiftRichString */,
 				017CF70A2977219E00ACBFD0 /* RichText */,
 			);
 			productName = RSS;
@@ -760,11 +757,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		013A174E296F8D5000661A44 /* SwiftRichString */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */;
-			productName = SwiftRichString;
-		};
 		017CF70A2977219E00ACBFD0 /* RichText */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */;

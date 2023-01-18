@@ -13,7 +13,7 @@ struct RSSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CategoriesView()
+            CategoriesView(path: [Category.example])
                 .environmentObject(session)
         }
     }

@@ -56,7 +56,8 @@ protocol Session {
         let result = await dependencies.api.call(with: GetCategoriesRequest())
         switch result {
         case .success(let categories):
-            let newCategories = categories.sorted().map({ Category(id: $0.id, title: $0.title.capitalized) })
+            var newCategories = categories.sorted().map({ Category(id: $0.id, title: $0.title.capitalized) })
+            newCategories.insert(Category.example, at: 0)
             withAnimation { self.categories = newCategories }
             dependencies.localStorage.save(newCategories, for: .categories)
         case .failure(let error):
