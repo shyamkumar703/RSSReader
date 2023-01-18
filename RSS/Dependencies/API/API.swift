@@ -40,7 +40,9 @@ class APIManager: API {
             }
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = request.dateDecodingStrategy
-            let decodedObject = try! decoder.decode(RequestType.ResponseType.self, from: data)
+            guard let decodedObject = try? decoder.decode(RequestType.ResponseType.self, from: data) else {
+                return .failure(.decodingFailed)
+            }
             return .success(decodedObject)
         } catch let error {
             return .failure(.requestFailed(error.localizedDescription))

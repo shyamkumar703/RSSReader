@@ -14,6 +14,14 @@ struct FeedItemView: View {
     
     let category: Category?
     
+    var tertiaryTitleText: String {
+        var startTitle = feedItem.feed.title
+        if let readTime = feedItem.readingTime {
+            startTitle += " · \(readTime) minute read"
+        }
+        return startTitle
+    }
+    
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
             // Star label here probably!!
@@ -44,7 +52,7 @@ struct FeedItemView: View {
                         .lineLimit(2)
                 }
                 
-                Text(feedItem.feed.title)
+                Text(tertiaryTitleText)
                     .font(.caption)
                     .foregroundColor(.secondary.opacity(0.75))
             }
