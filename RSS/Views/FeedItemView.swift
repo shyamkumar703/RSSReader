@@ -58,33 +58,31 @@ struct FeedItemView: View {
             }
         }
         .swipeActions {
-            // No current way to star with the API
-            
-//            if feedItem.starred {
-//                Button {
-//                    // mark as unstarred
-//                    feedItem.starred = false
-//                    Task {
-//                        await viewModel.shouldStar(false, item: feedItem, with: dependencies)
-//                    }
-//                } label: {
-//                    Label("Unstar", systemImage: "star.slash.fill")
-//                        .labelStyle(.iconOnly)
-//                }
-//                .tint(.red)
-//            } else {
-//                Button {
-//                    // mark as starred (w/ API
-//                    feedItem.starred = true
-//                    Task {
-//                        await viewModel.shouldStar(true, item: feedItem, with: dependencies)
-//                    }
-//                } label: {
-//                    Label("Star", systemImage: "star.fill")
-//                        .labelStyle(.iconOnly)
-//                }
-//                .tint(.yellow)
-//            }
+            if feedItem.starred {
+                Button {
+                    // mark as unstarred
+                    feedItem.starred = false
+                    Task {
+                        await viewModel.toggleStar(item: feedItem, in: category, with: session)
+                    }
+                } label: {
+                    Label("Unstar", systemImage: "star.slash.fill")
+                        .labelStyle(.iconOnly)
+                }
+                .tint(.red)
+            } else {
+                Button {
+                    // mark as starred (w/ API
+                    feedItem.starred = true
+                    Task {
+                        await viewModel.toggleStar(item: feedItem, in: category, with: session)
+                    }
+                } label: {
+                    Label("Star", systemImage: "star.fill")
+                        .labelStyle(.iconOnly)
+                }
+                .tint(.yellow)
+            }
             
             if feedItem.status == .read {
                 Button {
@@ -119,6 +117,10 @@ extension FeedItemView {
     @MainActor class ViewModel: ObservableObject {
         func markAs(status: FeedEntry.Status, item: FeedEntry, with session: SessionManager, category: Category?) async {
             _ = await session.markAs(status: status, item: item, category: category)
+        }
+        
+        func toggleStar(item: FeedEntry, in category: Category?, with session: SessionManager) async {
+            await session.toggleStar(for: item, in: category)
         }
     }
 }

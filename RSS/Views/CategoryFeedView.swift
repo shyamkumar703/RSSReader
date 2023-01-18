@@ -67,7 +67,6 @@ struct CategoryFeedView: View {
             await viewModel.loadFeed(for: feedCategory, with: session)
         }
         .navigationTitle(feedCategory?.title ?? "All")
-//        .navigationBarTitleDisplayMode(.inline)
         .task {
             await viewModel.loadFeed(for: feedCategory, with: session)
         }

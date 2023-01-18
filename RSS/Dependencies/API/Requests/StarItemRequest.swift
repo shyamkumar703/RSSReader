@@ -7,23 +7,13 @@
 
 import Foundation
 
-struct StarItemRequestBody: Codable {
-    var entryIds: [Int]
-    var starred: Bool
-    
-    enum CodingKeys: String, CodingKey {
-        case entryIds = "entry_ids"
-        case starred
-    }
-}
-
 struct StarItemRequest: Request {
     typealias ResponseType = IgnoreResponse
     var method: Method = .PUT
-    var path: String = "entries"
-    var body: StarItemRequestBody
+    var path: String
+    var body: NoBody = NoBody()
     
-    init(entryIds: [Int], starred: Bool) {
-        self.body = StarItemRequestBody(entryIds: entryIds, starred: starred)
+    init(entryId: Int) {
+        self.path = "entries/\(entryId)/bookmark"
     }
 }

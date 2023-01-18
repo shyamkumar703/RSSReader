@@ -13,6 +13,7 @@ protocol Session {
     func loadFeed(for category: Category?) async -> Result<FeedResponse, RSSError>
     func loadCategories() async -> Result<Array<Category>, RSSError>
     func feedFor(category: Category?) -> [FeedEntry]
+    func toggleStar(for entry: FeedEntry, in category: Category?) async
 }
 
 @MainActor class SessionManager: ObservableObject {
@@ -72,5 +73,11 @@ protocol Session {
         } else {
             return feedCategoryDictionary[Category.example] ?? []
         }
+    }
+    
+    func toggleStar(for entry: FeedEntry, in category: Category?) async {
+        // rework to add result in future
+        _ = await dependencies.api.call(with: StarItemRequest(entryId: entry.id))
+        _ = await loadFeed(for: category)
     }
 }

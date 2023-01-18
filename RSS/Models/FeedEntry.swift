@@ -52,7 +52,7 @@ struct FeedEntry: Codable, Identifiable {
         case author
         case shareCode = "share_code"
         case starred
-        case readingTime
+        case readingTime = "reading_time"
         case feed
         case content
     }
