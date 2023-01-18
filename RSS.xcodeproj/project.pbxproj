@@ -37,6 +37,7 @@
 		013A1784297069B800661A44 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1783297069B800661A44 /* SettingsView.swift */; };
 		013A17C12971B0E100661A44 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A17C02971B0E100661A44 /* String.swift */; };
 		017CF70B2977219E00ACBFD0 /* RichText in Frameworks */ = {isa = PBXBuildFile; productRef = 017CF70A2977219E00ACBFD0 /* RichText */; };
+		01EE4D262978771F0051C3C7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D252978771F0051C3C7 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		013A1783297069B800661A44 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		013A17C02971B0E100661A44 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		01EE4D252978771F0051C3C7 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 				013A1777296FC1B300661A44 /* Encodable.swift */,
 				013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */,
 				013A17C02971B0E100661A44 /* String.swift */,
+				01EE4D252978771F0051C3C7 /* Date.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				013A1778296FC1B300661A44 /* Encodable.swift in Sources */,
 				013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */,
 				013A1754296F94C000661A44 /* Feed.swift in Sources */,
+				01EE4D262978771F0051C3C7 /* Date.swift in Sources */,
 				013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */,
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
 				013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */,

@@ -23,12 +23,11 @@ struct EntryView: View {
                 .foregroundColor(light: Color.primary, dark: Color.primary)
                 .imageRadius(12)
                 .placeholder {
-                    Text("Loading...")
+                    ProgressView()
+                        .padding()
                 }
                 .padding()
         }
-        .navigationTitle("")
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button {
                 isShowingWebSheet = true

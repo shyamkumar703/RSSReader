@@ -13,6 +13,12 @@ struct FeedItemView: View {
     @StateObject var viewModel = ViewModel()
     
     let category: Category?
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return formatter
+    }()
     
     var tertiaryTitleText: String {
         var startTitle = feedItem.feed.title
@@ -20,6 +26,10 @@ struct FeedItemView: View {
             startTitle += " · \(readTime) minute read"
         }
         return startTitle
+    }
+    
+    var bottomTitleText: String? {
+        dateFormatter.date(from: feedItem.publishedAt)?.timePassed()
     }
     
     var body: some View {
@@ -55,6 +65,12 @@ struct FeedItemView: View {
                 Text(tertiaryTitleText)
                     .font(.caption)
                     .foregroundColor(.secondary.opacity(0.75))
+                
+                if let bottomTitleText {
+                    Text(bottomTitleText)
+                        .font(.caption2)
+                        .foregroundColor(.secondary.opacity(0.75))
+                }
             }
         }
         .swipeActions {
