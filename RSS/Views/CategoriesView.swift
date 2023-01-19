@@ -39,6 +39,15 @@ struct CategoriesView: View {
                             }
                         }
                         .padding(8)
+                        .contextMenu {
+                            Button() {
+                                Task {
+                                    await session.markCategoryAsRead(category)
+                                }
+                            } label: {
+                                Label("Mark all as read", systemImage: "envelope.open")
+                            }
+                        }
                     }
                 }
             }

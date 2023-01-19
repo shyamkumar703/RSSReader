@@ -48,6 +48,7 @@
 		01EE4D3C2979B1340051C3C7 /* GetFeedLazyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D3B2979B1340051C3C7 /* GetFeedLazyRequest.swift */; };
 		01EE4D3E2979C0AA0051C3C7 /* UnreadCountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D3D2979C0AA0051C3C7 /* UnreadCountRequest.swift */; };
 		01EE4D402979CAE00051C3C7 /* GetCategoryFeeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D3F2979CAE00051C3C7 /* GetCategoryFeeds.swift */; };
+		01EE4D422979CFF90051C3C7 /* MarkCategoryAsReadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D412979CFF90051C3C7 /* MarkCategoryAsReadRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		01EE4D3B2979B1340051C3C7 /* GetFeedLazyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFeedLazyRequest.swift; sourceTree = "<group>"; };
 		01EE4D3D2979C0AA0051C3C7 /* UnreadCountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadCountRequest.swift; sourceTree = "<group>"; };
 		01EE4D3F2979CAE00051C3C7 /* GetCategoryFeeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoryFeeds.swift; sourceTree = "<group>"; };
+		01EE4D412979CFF90051C3C7 /* MarkCategoryAsReadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkCategoryAsReadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 				01EE4D3B2979B1340051C3C7 /* GetFeedLazyRequest.swift */,
 				01EE4D3D2979C0AA0051C3C7 /* UnreadCountRequest.swift */,
 				01EE4D3F2979CAE00051C3C7 /* GetCategoryFeeds.swift */,
+				01EE4D412979CFF90051C3C7 /* MarkCategoryAsReadRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				01EE4D262978771F0051C3C7 /* Date.swift in Sources */,
 				01EE4D3E2979C0AA0051C3C7 /* UnreadCountRequest.swift in Sources */,
 				01EE4D3A2979986B0051C3C7 /* TextAlignment+Extension.swift in Sources */,
+				01EE4D422979CFF90051C3C7 /* MarkCategoryAsReadRequest.swift in Sources */,
 				013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */,
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
 				01EE4D332979986B0051C3C7 /* Webview.swift in Sources */,

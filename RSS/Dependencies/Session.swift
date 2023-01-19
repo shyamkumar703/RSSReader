@@ -137,4 +137,9 @@ protocol Session {
         _ = await dependencies.api.call(with: StarItemRequest(entryId: entry.id))
         _ = await loadFeed(for: category)
     }
+    
+    func markCategoryAsRead(_ category: Category) async {
+        _ = await dependencies.api.call(with: MarkCategoryAsReadRequest(categoryId: category.id))
+        _ = await loadCategories()
+    }
 }
