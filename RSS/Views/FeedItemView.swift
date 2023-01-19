@@ -74,32 +74,6 @@ struct FeedItemView: View {
             }
         }
         .swipeActions {
-            if feedItem.starred {
-                Button {
-                    // mark as unstarred
-                    feedItem.starred = false
-                    Task {
-                        await viewModel.toggleStar(item: feedItem, in: category, with: session)
-                    }
-                } label: {
-                    Label("Unstar", systemImage: "star.slash.fill")
-                        .labelStyle(.iconOnly)
-                }
-                .tint(.red)
-            } else {
-                Button {
-                    // mark as starred (w/ API
-                    feedItem.starred = true
-                    Task {
-                        await viewModel.toggleStar(item: feedItem, in: category, with: session)
-                    }
-                } label: {
-                    Label("Star", systemImage: "star.fill")
-                        .labelStyle(.iconOnly)
-                }
-                .tint(.yellow)
-            }
-            
             if feedItem.status == .read {
                 Button {
                     // mark as unread (w/ API)
@@ -124,6 +98,33 @@ struct FeedItemView: View {
                         .labelStyle(.iconOnly)
                 }
                 .tint(.green)
+            }
+        }
+        .swipeActions(edge: .leading) {
+            if feedItem.starred {
+                Button {
+                    // mark as unstarred
+                    feedItem.starred = false
+                    Task {
+                        await viewModel.toggleStar(item: feedItem, in: category, with: session)
+                    }
+                } label: {
+                    Label("Unstar", systemImage: "star.slash.fill")
+                        .labelStyle(.iconOnly)
+                }
+                .tint(.red)
+            } else {
+                Button {
+                    // mark as starred (w/ API
+                    feedItem.starred = true
+                    Task {
+                        await viewModel.toggleStar(item: feedItem, in: category, with: session)
+                    }
+                } label: {
+                    Label("Star", systemImage: "star.fill")
+                        .labelStyle(.iconOnly)
+                }
+                .tint(.yellow)
             }
         }
     }
