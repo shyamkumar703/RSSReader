@@ -32,8 +32,9 @@ struct CategoriesView: View {
                             
                             Spacer()
                             
-                            if !session.feedFor(category: category).filter({ $0.status == .unread }).isEmpty {
-                                Text(String(session.feedFor(category: category).filter({ $0.status == .unread }).count))
+                            if let unreadCount = category.unreadCount,
+                               unreadCount > 0 {
+                                Text(String(unreadCount))
                                     .foregroundColor(Color.secondary)
                             }
                         }

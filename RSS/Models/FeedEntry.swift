@@ -12,8 +12,8 @@ struct FeedResponse: Codable {
     var entries: [FeedEntry]
 }
 
-struct FeedEntry: Codable, Identifiable {
-    enum Status: String, Codable {
+struct FeedEntry: Codable, Identifiable, Equatable, Hashable {
+    enum Status: String, Codable, CaseIterable {
         case read
         case unread
         case removed
@@ -37,6 +37,17 @@ struct FeedEntry: Codable, Identifiable {
     var feed: Feed
     var content: String
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return formatter
+    }()
+    
+    var date: Date {
+        dateFormatter.date(from: publishedAt) ?? Date()
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case userId = "user_id"
@@ -55,5 +66,13 @@ struct FeedEntry: Codable, Identifiable {
         case readingTime = "reading_time"
         case feed
         case content
+    }
+    
+    static func == (lhs: FeedEntry, rhs: FeedEntry) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

@@ -45,6 +45,9 @@
 		01EE4D382979986B0051C3C7 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D302979986B0051C3C7 /* UIColor+Extension.swift */; };
 		01EE4D392979986B0051C3C7 /* RichText+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D312979986B0051C3C7 /* RichText+Extension.swift */; };
 		01EE4D3A2979986B0051C3C7 /* TextAlignment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D322979986B0051C3C7 /* TextAlignment+Extension.swift */; };
+		01EE4D3C2979B1340051C3C7 /* GetFeedLazyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D3B2979B1340051C3C7 /* GetFeedLazyRequest.swift */; };
+		01EE4D3E2979C0AA0051C3C7 /* UnreadCountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D3D2979C0AA0051C3C7 /* UnreadCountRequest.swift */; };
+		01EE4D402979CAE00051C3C7 /* GetCategoryFeeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D3F2979CAE00051C3C7 /* GetCategoryFeeds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +109,9 @@
 		01EE4D302979986B0051C3C7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		01EE4D312979986B0051C3C7 /* RichText+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RichText+Extension.swift"; sourceTree = "<group>"; };
 		01EE4D322979986B0051C3C7 /* TextAlignment+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextAlignment+Extension.swift"; sourceTree = "<group>"; };
+		01EE4D3B2979B1340051C3C7 /* GetFeedLazyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFeedLazyRequest.swift; sourceTree = "<group>"; };
+		01EE4D3D2979C0AA0051C3C7 /* UnreadCountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadCountRequest.swift; sourceTree = "<group>"; };
+		01EE4D3F2979CAE00051C3C7 /* GetCategoryFeeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoryFeeds.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +237,9 @@
 				013A1761296FA07800661A44 /* GetCategoriesRequest.swift */,
 				013A1775296FBFE500661A44 /* MarkItemRequest.swift */,
 				013A1779296FC60700661A44 /* StarItemRequest.swift */,
+				01EE4D3B2979B1340051C3C7 /* GetFeedLazyRequest.swift */,
+				01EE4D3D2979C0AA0051C3C7 /* UnreadCountRequest.swift */,
+				01EE4D3F2979CAE00051C3C7 /* GetCategoryFeeds.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -454,6 +463,7 @@
 				01EE4D382979986B0051C3C7 /* UIColor+Extension.swift in Sources */,
 				01EE4D342979986B0051C3C7 /* RichText.swift in Sources */,
 				01EE4D262978771F0051C3C7 /* Date.swift in Sources */,
+				01EE4D3E2979C0AA0051C3C7 /* UnreadCountRequest.swift in Sources */,
 				01EE4D3A2979986B0051C3C7 /* TextAlignment+Extension.swift in Sources */,
 				013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */,
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
@@ -462,6 +472,8 @@
 				013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */,
 				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
 				013A1772296FB36B00661A44 /* WebView.swift in Sources */,
+				01EE4D3C2979B1340051C3C7 /* GetFeedLazyRequest.swift in Sources */,
+				01EE4D402979CAE00051C3C7 /* GetCategoryFeeds.swift in Sources */,
 				013A1752296F93D600661A44 /* FeedEntry.swift in Sources */,
 				013A17C12971B0E100661A44 /* String.swift in Sources */,
 				013A175E296F994B00661A44 /* API.swift in Sources */,

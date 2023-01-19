@@ -34,7 +34,7 @@ struct CategoryFeedView: View {
     
     var body: some View {
         Group {
-            if viewModel.isLoading {
+            if viewModel.isLoading && filteredFeed.isEmpty {
                 ProgressView()
                     .padding()
             } else if filteredFeed.isEmpty {
@@ -58,7 +58,21 @@ struct CategoryFeedView: View {
                         } label: {
                             FeedItemView(feedItem: feedItem, category: feedCategory)
                                 .environmentObject(session)
+                                .onAppear {
+                                    if let index = filteredFeed.firstIndex(of: feedItem) {
+                                        if index > filteredFeed.count - 6 {
+                                            Task {
+                                                await viewModel.loadItems(for: feedCategory, before: filteredFeed[filteredFeed.count - 1].date, with: session)
+                                            }
+                                        }
+                                    }
+                                }
                         }
+                    }
+                    
+                    if viewModel.isLoading && !filteredFeed.isEmpty {
+                        ProgressView()
+                            .padding()
                     }
                 }
             }
