@@ -5,7 +5,6 @@
 //  Created by Shyam Kumar on 1/11/23.
 //
 
-import RichText
 import SwiftUI
 
 struct EntryView: View {
@@ -27,6 +26,7 @@ struct EntryView: View {
                         .padding()
                 }
                 .padding()
+                .frame(maxWidth: UIScreen.main.bounds.width)
         }
         .toolbar {
             Button {
@@ -36,7 +36,7 @@ struct EntryView: View {
             }
         }
         .sheet(isPresented: $isShowingWebSheet) {
-            WebView(url: URL(string: feedEntry.url)!)
+            WebViewSafari(url: URL(string: feedEntry.url)!)
                 .padding(0)
         }
         .onAppear {

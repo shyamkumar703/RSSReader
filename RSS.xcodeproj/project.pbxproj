@@ -36,8 +36,15 @@
 		013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A177F297063DC00661A44 /* FileManager+DocumentsDirectory.swift */; };
 		013A1784297069B800661A44 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A1783297069B800661A44 /* SettingsView.swift */; };
 		013A17C12971B0E100661A44 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A17C02971B0E100661A44 /* String.swift */; };
-		017CF70B2977219E00ACBFD0 /* RichText in Frameworks */ = {isa = PBXBuildFile; productRef = 017CF70A2977219E00ACBFD0 /* RichText */; };
 		01EE4D262978771F0051C3C7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D252978771F0051C3C7 /* Date.swift */; };
+		01EE4D332979986B0051C3C7 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D292979986B0051C3C7 /* Webview.swift */; };
+		01EE4D342979986B0051C3C7 /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D2A2979986B0051C3C7 /* RichText.swift */; };
+		01EE4D352979986B0051C3C7 /* RichTextEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D2C2979986B0051C3C7 /* RichTextEnums.swift */; };
+		01EE4D362979986B0051C3C7 /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D2D2979986B0051C3C7 /* ColorSet.swift */; };
+		01EE4D372979986B0051C3C7 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D2E2979986B0051C3C7 /* Configuration.swift */; };
+		01EE4D382979986B0051C3C7 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D302979986B0051C3C7 /* UIColor+Extension.swift */; };
+		01EE4D392979986B0051C3C7 /* RichText+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D312979986B0051C3C7 /* RichText+Extension.swift */; };
+		01EE4D3A2979986B0051C3C7 /* TextAlignment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE4D322979986B0051C3C7 /* TextAlignment+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +98,14 @@
 		013A1783297069B800661A44 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		013A17C02971B0E100661A44 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		01EE4D252978771F0051C3C7 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		01EE4D292979986B0051C3C7 /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
+		01EE4D2A2979986B0051C3C7 /* RichText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichText.swift; sourceTree = "<group>"; };
+		01EE4D2C2979986B0051C3C7 /* RichTextEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextEnums.swift; sourceTree = "<group>"; };
+		01EE4D2D2979986B0051C3C7 /* ColorSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
+		01EE4D2E2979986B0051C3C7 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		01EE4D302979986B0051C3C7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		01EE4D312979986B0051C3C7 /* RichText+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RichText+Extension.swift"; sourceTree = "<group>"; };
+		01EE4D322979986B0051C3C7 /* TextAlignment+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextAlignment+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +113,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				017CF70B2977219E00ACBFD0 /* RichText in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +156,7 @@
 		013A1722296F8CFB00661A44 /* RSS */ = {
 			isa = PBXGroup;
 			children = (
+				01EE4D272979985A0051C3C7 /* RichText */,
 				013A1723296F8CFB00661A44 /* RSSApp.swift */,
 				013A1770296FB35A00661A44 /* Utils */,
 				013A1765296FA23000661A44 /* Views */,
@@ -254,6 +269,45 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		01EE4D272979985A0051C3C7 /* RichText */ = {
+			isa = PBXGroup;
+			children = (
+				01EE4D2F2979986B0051C3C7 /* Extensions */,
+				01EE4D2B2979986B0051C3C7 /* Models */,
+				01EE4D282979986B0051C3C7 /* Views */,
+			);
+			path = RichText;
+			sourceTree = "<group>";
+		};
+		01EE4D282979986B0051C3C7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01EE4D292979986B0051C3C7 /* Webview.swift */,
+				01EE4D2A2979986B0051C3C7 /* RichText.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		01EE4D2B2979986B0051C3C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01EE4D2C2979986B0051C3C7 /* RichTextEnums.swift */,
+				01EE4D2D2979986B0051C3C7 /* ColorSet.swift */,
+				01EE4D2E2979986B0051C3C7 /* Configuration.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		01EE4D2F2979986B0051C3C7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				01EE4D302979986B0051C3C7 /* UIColor+Extension.swift */,
+				01EE4D312979986B0051C3C7 /* RichText+Extension.swift */,
+				01EE4D322979986B0051C3C7 /* TextAlignment+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -271,7 +325,6 @@
 			);
 			name = RSS;
 			packageProductDependencies = (
-				017CF70A2977219E00ACBFD0 /* RichText */,
 			);
 			productName = RSS;
 			productReference = 013A1720296F8CFB00661A44 /* RSS.app */;
@@ -346,8 +399,6 @@
 			);
 			mainGroup = 013A1717296F8CFB00661A44;
 			packageReferences = (
-				013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */,
-				017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */,
 			);
 			productRefGroup = 013A1721296F8CFB00661A44 /* Products */;
 			projectDirPath = "";
@@ -391,15 +442,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EE4D362979986B0051C3C7 /* ColorSet.swift in Sources */,
 				013A177C297057A900661A44 /* Session.swift in Sources */,
 				013A1784297069B800661A44 /* SettingsView.swift in Sources */,
 				013A1762296FA07800661A44 /* GetCategoriesRequest.swift in Sources */,
 				013A1778296FC1B300661A44 /* Encodable.swift in Sources */,
 				013A1726296F8CFB00661A44 /* CategoriesView.swift in Sources */,
+				01EE4D392979986B0051C3C7 /* RichText+Extension.swift in Sources */,
+				01EE4D372979986B0051C3C7 /* Configuration.swift in Sources */,
 				013A1754296F94C000661A44 /* Feed.swift in Sources */,
+				01EE4D382979986B0051C3C7 /* UIColor+Extension.swift in Sources */,
+				01EE4D342979986B0051C3C7 /* RichText.swift in Sources */,
 				01EE4D262978771F0051C3C7 /* Date.swift in Sources */,
+				01EE4D3A2979986B0051C3C7 /* TextAlignment+Extension.swift in Sources */,
 				013A1776296FBFE500661A44 /* MarkItemRequest.swift in Sources */,
 				013A1759296F96A700661A44 /* Request.swift in Sources */,
+				01EE4D332979986B0051C3C7 /* Webview.swift in Sources */,
 				013A1724296F8CFB00661A44 /* RSSApp.swift in Sources */,
 				013A1780297063DC00661A44 /* FileManager+DocumentsDirectory.swift in Sources */,
 				013A175C296F98E200661A44 /* GetFeedRequest.swift in Sources */,
@@ -410,6 +468,7 @@
 				013A177E2970636500661A44 /* LocalStorage.swift in Sources */,
 				013A1764296FA10100661A44 /* AllDependencies.swift in Sources */,
 				013A177A296FC60700661A44 /* StarItemRequest.swift in Sources */,
+				01EE4D352979986B0051C3C7 /* RichTextEnums.swift in Sources */,
 				013A1768296FA25800661A44 /* CategoriesView+ViewModel.swift in Sources */,
 				013A1774296FBC0500661A44 /* FeedItemView.swift in Sources */,
 				013A176C296FAC1A00661A44 /* CategoryFeedView+ViewModel.swift in Sources */,
@@ -740,33 +799,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		013A174D296F8D5000661A44 /* XCRemoteSwiftPackageReference "SwiftRichString" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/malcommac/SwiftRichString";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/NuPlay/RichText";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		017CF70A2977219E00ACBFD0 /* RichText */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 017CF7092977219E00ACBFD0 /* XCRemoteSwiftPackageReference "RichText" */;
-			productName = RichText;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 013A1718296F8CFB00661A44 /* Project object */;
 }

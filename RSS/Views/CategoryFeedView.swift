@@ -49,7 +49,7 @@ struct CategoryFeedView: View {
                                     .environmentObject(session)
                             } else {
                                 NavigationView {
-                                    WebView(url: URL(string: feedItem.url)!)
+                                    WebViewSafari(url: URL(string: feedItem.url)!)
                                     
                                 }
                                 .task { await session.markAs(status: .read, item: feedItem, category: feedCategory) }
