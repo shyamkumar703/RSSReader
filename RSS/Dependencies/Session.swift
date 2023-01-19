@@ -81,7 +81,8 @@ protocol Session {
             let allCategory = Category.example
             allCategory.unreadCount = newCategories.reduce(0, { interim, category in interim + (category.unreadCount ?? 0) })
             newCategories.insert(allCategory, at: 0)
-            withAnimation { self.categories = newCategories.sorted() }
+            newCategories.sort()
+            withAnimation { self.categories = newCategories }
             dependencies.localStorage.save(newCategories, for: .categories)
         case .failure(let error):
             print("Failure...\(error)")
