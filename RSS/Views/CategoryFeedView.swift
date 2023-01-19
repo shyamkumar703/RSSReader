@@ -41,32 +41,34 @@ struct CategoryFeedView: View {
                 Text("Nothing here yet")
                     .foregroundColor(.secondary)
             } else {
-                List {
-                    ForEach(filteredFeed) { feedItem in
-                        NavigationLink {
-                            if session.dependencies.localStorage.readShouldUseNativeHTMLViewer() {
-                                EntryView(feedEntry: feedItem, category: feedCategory)
-                                    .environmentObject(session)
-                            } else {
-                                NavigationView {
-                                    WebViewSafari(url: URL(string: feedItem.url)!)
-                                    
+                VStack {
+                    List {
+                        ForEach(filteredFeed) { feedItem in
+                            NavigationLink {
+                                if session.dependencies.localStorage.readShouldUseNativeHTMLViewer() {
+                                    EntryView(feedEntry: feedItem, category: feedCategory)
+                                        .environmentObject(session)
+                                } else {
+                                    NavigationView {
+                                        WebViewSafari(url: URL(string: feedItem.url)!)
+                                        
+                                    }
+                                    .task { await session.markAs(status: .read, item: feedItem, category: feedCategory) }
+                                    .navigationBarTitleDisplayMode(.inline)
                                 }
-                                .task { await session.markAs(status: .read, item: feedItem, category: feedCategory) }
-                                .navigationBarTitleDisplayMode(.inline)
-                            }
-                        } label: {
-                            FeedItemView(feedItem: feedItem, category: feedCategory)
-                                .environmentObject(session)
-                                .onAppear {
-                                    if let index = filteredFeed.firstIndex(of: feedItem) {
-                                        if index > filteredFeed.count - 6 {
-                                            Task {
-                                                await viewModel.loadItems(for: feedCategory, before: filteredFeed[filteredFeed.count - 1].date, with: session)
+                            } label: {
+                                FeedItemView(feedItem: feedItem, category: feedCategory)
+                                    .environmentObject(session)
+                                    .onAppear {
+                                        if let index = filteredFeed.firstIndex(of: feedItem) {
+                                            if index > filteredFeed.count - 6 {
+                                                Task {
+                                                    await viewModel.loadItems(for: feedCategory, before: filteredFeed[filteredFeed.count - 1].date, with: session)
+                                                }
                                             }
                                         }
                                     }
-                                }
+                            }
                         }
                     }
                     
