@@ -27,7 +27,15 @@ struct CategoriesView: View {
                                     .background(colorFor(char: first))
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
+                            
                             Text(category.title.capitalized)
+                            
+                            Spacer()
+                            
+                            if !session.feedFor(category: category).filter({ $0.status == .unread }).isEmpty {
+                                Text(String(session.feedFor(category: category).filter({ $0.status == .unread }).count))
+                                    .foregroundColor(Color.secondary)
+                            }
                         }
                         .padding(8)
                     }

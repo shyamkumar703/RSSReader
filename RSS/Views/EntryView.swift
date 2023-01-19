@@ -20,7 +20,7 @@ struct EntryView: View {
         ScrollView {
             RichText(html: feedEntry.content)
                 .fontType(.system)
-                .foregroundColor(light: Color.primary, dark: Color.primary)
+                .foregroundColor(light: Color.black, dark: Color.white)
                 .imageRadius(12)
                 .placeholder {
                     ProgressView()
