@@ -53,6 +53,7 @@ public struct Configuration {
         iframe{width:100%; height:250px;}
         a:link {color: \(linkColor.value(isLight));}
         A {text-decoration: none;}
+        pre {overflow-x:auto;}
         """
     }
 }
