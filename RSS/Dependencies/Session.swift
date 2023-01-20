@@ -29,6 +29,18 @@ protocol Session {
     
     func markAs(status: FeedEntry.Status, item: FeedEntry, category: Category?) async {
         _ = await dependencies.api.call(with: MarkItemRequest(entryIds: [item.id], status: status))
+        
+        let category = category ?? Category.example
+        if let index = categories.firstIndex(of: category),
+           let unreadCount = categories[index].unreadCount {
+            switch status {
+            case .unread:
+                categories[index].unreadCount = unreadCount + 1
+            default:
+                categories[index].unreadCount = unreadCount - 1
+            }
+        }
+        
         Task { [weak self] in
             await self?.loadFeed(for: category)
         }
@@ -141,6 +153,9 @@ protocol Session {
     
     func markCategoryAsRead(_ category: Category) async {
         _ = await dependencies.api.call(with: MarkCategoryAsReadRequest(categoryId: category.id))
+        if let index = categories.firstIndex(of: category) {
+            categories[index].unreadCount = 0
+        }
         _ = await loadCategories()
     }
 }
