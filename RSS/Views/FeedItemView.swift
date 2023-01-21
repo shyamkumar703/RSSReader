@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedItemView: View {
     @EnvironmentObject var session: SessionManager
-    @State var feedItem: FeedEntry
+    @ObservedObject var feedItem: FeedEntry
     @StateObject var viewModel = ViewModel()
     
     let category: Category?
