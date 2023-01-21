@@ -12,7 +12,7 @@ struct FeedResponse: Codable {
     var entries: [FeedEntry]
 }
 
-class FeedEntry: Codable, Identifiable, Equatable, Hashable, ObservableObject {
+class FeedEntry: Codable, Identifiable, Equatable, Hashable, ObservableObject, Comparable {
     enum Status: String, Codable, CaseIterable {
         case read
         case unread
@@ -154,5 +154,9 @@ class FeedEntry: Codable, Identifiable, Equatable, Hashable, ObservableObject {
         try container.encode(readingTime, forKey: .readingTime)
         try container.encode(feed, forKey: .feed)
         try container.encode(content, forKey: .content)
+    }
+    
+    static func < (lhs: FeedEntry, rhs: FeedEntry) -> Bool {
+        lhs.date > rhs.date
     }
 }

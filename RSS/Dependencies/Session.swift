@@ -28,6 +28,8 @@ protocol Session {
     }
     
     func markAs(status: FeedEntry.Status, item: FeedEntry, category: Category?) async {
+        feedCategoryDictionary[category ?? Category.example]?.first(where: { $0.id == item.id })?.status = status
+        
         _ = await dependencies.api.call(with: MarkItemRequest(entryIds: [item.id], status: status))
         
         let category = category ?? Category.example
@@ -46,16 +48,28 @@ protocol Session {
         }
     }
     
+    private func merge(_ entries1: inout [FeedEntry], with entries2: [FeedEntry]) {
+        for entry in entries2 {
+            if let index = entries1.firstIndex(of: entry) {
+                entries1[index] = entry
+            } else {
+                entries1.append(entry)
+            }
+        }
+        
+        entries1.sort()
+    }
+    
     func loadFeed(for category: Category?) async -> Result<FeedResponse, RSSError> {
         let result = await dependencies.api.call(with: GetFeedRequest(categoryId: category?.id))
         switch result {
         case .success(let feedResponse):
             withAnimation {
-                if let category = category {
-                    feedCategoryDictionary[category] = feedResponse.entries
-                } else {
-                    feedCategoryDictionary[Category.example] = feedResponse.entries
-                }
+                let category = category ?? Category.example
+                
+                var existingEntries = feedCategoryDictionary[category] ?? []
+                merge(&existingEntries, with: feedResponse.entries)
+                feedCategoryDictionary[category] = existingEntries
                 
                 dependencies.localStorage.save(feedCategoryDictionary, for: .feedDictionary)
             }
