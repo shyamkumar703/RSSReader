@@ -27,7 +27,7 @@ struct FeedItemView: View {
     }
     
     var body: some View {
-        HStack(alignment: .firstTextBaseline) {
+        return HStack(alignment: .firstTextBaseline) {
             // Star label here probably!!
             HStack(alignment: .center) {
                 if feedItem.starred {

@@ -43,9 +43,9 @@ protocol Session {
             }
         }
         
-        Task { [weak self] in
-            await self?.loadFeed(for: category)
-        }
+//        Task { [weak self] in
+//            await self?.loadFeed(for: category)
+//        }
     }
     
     private func merge(_ entries1: inout [FeedEntry], with entries2: [FeedEntry]) {
@@ -67,9 +67,9 @@ protocol Session {
             withAnimation {
                 let category = category ?? Category.example
                 
-                var existingEntries = feedCategoryDictionary[category] ?? []
-                merge(&existingEntries, with: feedResponse.entries)
-                feedCategoryDictionary[category] = existingEntries
+//                var existingEntries = feedCategoryDictionary[category] ?? []
+//                merge(&existingEntries, with: feedResponse.entries)
+                feedCategoryDictionary[category] = feedResponse.entries
                 
                 dependencies.localStorage.save(feedCategoryDictionary, for: .feedDictionary)
             }
@@ -89,8 +89,6 @@ protocol Session {
                 var newEntries = feedCategoryDictionary[currentCategory] ?? []
                 newEntries += feedResponse.entries
                 feedCategoryDictionary[currentCategory] = newEntries
-                
-                dependencies.localStorage.save(feedCategoryDictionary, for: .feedDictionary)
             }
         case .failure(let error):
             print("error: \(error)")
@@ -162,7 +160,7 @@ protocol Session {
     func toggleStar(for entry: FeedEntry, in category: Category?) async {
         // rework to add result in future
         _ = await dependencies.api.call(with: StarItemRequest(entryId: entry.id))
-        _ = await loadFeed(for: category)
+//        _ = await loadFeed(for: category)
     }
     
     func markCategoryAsRead(_ category: Category) async {

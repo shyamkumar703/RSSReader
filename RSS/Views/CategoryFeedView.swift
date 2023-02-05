@@ -61,7 +61,7 @@ struct CategoryFeedView: View {
                                     .environmentObject(session)
                                     .onAppear {
                                         if let index = filteredFeed.firstIndex(of: feedItem) {
-                                            if index > filteredFeed.count - 6 {
+                                            if index > filteredFeed.count - 6 && filteredFeed.count >= 20 {
                                                 Task {
                                                     await viewModel.loadItems(for: feedCategory, before: filteredFeed[filteredFeed.count - 1].date, with: session)
                                                 }
@@ -73,6 +73,7 @@ struct CategoryFeedView: View {
                     }
                     
                     if viewModel.isLoading && !filteredFeed.isEmpty {
+                        // FIXME: bg in light mode is weird
                         ProgressView()
                             .padding()
                     }
