@@ -167,7 +167,8 @@ extension FeedEntry {
         \.status: Status.self,
         \.date: Date.self,
         \.starred: Bool.self,
-        \.feed: Feed.self
+        \.feed: Feed.self,
+        \.readingTime: Int.self
     ]
     
     static func stringFor(_ keypath: PartialKeyPath<FeedEntry>) -> String {
@@ -176,6 +177,7 @@ extension FeedEntry {
         case \.date: return "Date"
         case \.starred: return "Starred"
         case \.feed: return "Feed"
+        case \.readingTime: return "Reading time"
         default: return ""
         }
     }
@@ -186,6 +188,7 @@ extension FeedEntry {
         case "Date": return \.date
         case "Starred": return \.starred
         case "Feed": return \.feed
+        case "Reading time": return \.readingTime
         default: throw FeedEntryError.invalidKeypathString
         }
     }
