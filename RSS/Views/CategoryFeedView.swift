@@ -21,6 +21,7 @@ struct CategoryFeedView: View {
     
     @State private var fullFeed: [FeedEntry] = []
     @State private var filteredFeed: [FeedEntry]?
+    @State private var currentFilter: (String, QueryNode<FeedEntry>)?
     
     var currentFeed: [FeedEntry] {
         filteredFeed ?? fullFeed
@@ -86,10 +87,7 @@ struct CategoryFeedView: View {
             fullFeed = session.feedFor(category: feedCategory)
         }
         .toolbar {
-//            Picker(currentFilter.rawValue, selection: $currentFilter) {
-//                ForEach(FilterOptions.allCases, id: \.self) { Text($0.rawValue) }
-//            }
-            QueryFilterView(allItems: $fullFeed, filteredItems: $filteredFeed)
+            QueryFilterView(allItems: $fullFeed, filteredItems: $filteredFeed, currentFilter: $currentFilter)
         }
     }
     
