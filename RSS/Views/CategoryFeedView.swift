@@ -5,18 +5,13 @@
 //  Created by Shyam Kumar on 1/11/23.
 //
 
+import QueryBuilderSwiftUI
 import SwiftUI
 
 struct CategoryFeedView: View {
-    enum FilterOptions: String, CaseIterable {
-        case unread = "Unread"
-        case starred = "Starred"
-        case all = "All"
-    }
     
     @EnvironmentObject var session: SessionManager
     @StateObject var viewModel = ViewModel()
-    @State var currentFilter = FilterOptions.unread
     @Environment(\.refresh) var refresh
     let feedCategory: Category?
     
@@ -24,26 +19,25 @@ struct CategoryFeedView: View {
         feedCategory?.title.first ?? "A"
     }
     
-    var filteredFeed: [FeedEntry] {
-        switch currentFilter {
-        case .all: return session.feedFor(category: feedCategory)
-        case .unread: return session.feedFor(category: feedCategory).filter({ $0.status == .unread })
-        case .starred: return session.feedFor(category: feedCategory).filter({ $0.starred })
-        }
+    @State private var fullFeed: [FeedEntry] = []
+    @State private var filteredFeed: [FeedEntry]?
+    
+    var currentFeed: [FeedEntry] {
+        filteredFeed ?? fullFeed
     }
     
     var body: some View {
         Group {
-            if viewModel.isLoading && filteredFeed.isEmpty {
+            if viewModel.isLoading && currentFeed.isEmpty {
                 ProgressView()
                     .padding()
-            } else if filteredFeed.isEmpty {
+            } else if currentFeed.isEmpty {
                 Text("Nothing here yet")
                     .foregroundColor(.secondary)
             } else {
                 VStack {
                     List {
-                        ForEach(filteredFeed) { feedItem in
+                        ForEach(currentFeed) { feedItem in
                             NavigationLink {
                                 if session.dependencies.localStorage.readShouldUseNativeHTMLViewer() {
                                     EntryView(feedEntry: feedItem, category: feedCategory)
@@ -60,10 +54,12 @@ struct CategoryFeedView: View {
                                 FeedItemView(feedItem: feedItem, category: feedCategory)
                                     .environmentObject(session)
                                     .onAppear {
-                                        if let index = filteredFeed.firstIndex(of: feedItem) {
-                                            if index > filteredFeed.count - 6 && filteredFeed.count >= 20 {
+                                        if let index = currentFeed.firstIndex(of: feedItem) {
+                                            if index > currentFeed.count - 6 && currentFeed.count >= 20 {
                                                 Task {
-                                                    await viewModel.loadItems(for: feedCategory, before: filteredFeed[filteredFeed.count - 1].date, with: session)
+                                                    let beforeDate = currentFeed[currentFeed.count - 1].date
+                                                    await viewModel.loadItems(for: feedCategory, before: beforeDate, with: session)
+                                                    fullFeed = session.feedFor(category: feedCategory)
                                                 }
                                             }
                                         }
@@ -72,7 +68,7 @@ struct CategoryFeedView: View {
                         }
                     }
                     
-                    if viewModel.isLoading && !filteredFeed.isEmpty {
+                    if viewModel.isLoading && !currentFeed.isEmpty {
                         // FIXME: bg in light mode is weird
                         ProgressView()
                             .padding()
@@ -82,15 +78,18 @@ struct CategoryFeedView: View {
         }
         .refreshable {
             await viewModel.loadFeed(for: feedCategory, with: session)
+            fullFeed = session.feedFor(category: feedCategory)
         }
         .navigationTitle(feedCategory?.title ?? "All")
         .task {
             await viewModel.loadFeed(for: feedCategory, with: session)
+            fullFeed = session.feedFor(category: feedCategory)
         }
         .toolbar {
-            Picker(currentFilter.rawValue, selection: $currentFilter) {
-                ForEach(FilterOptions.allCases, id: \.self) { Text($0.rawValue) }
-            }
+//            Picker(currentFilter.rawValue, selection: $currentFilter) {
+//                ForEach(FilterOptions.allCases, id: \.self) { Text($0.rawValue) }
+//            }
+            QueryFilterView(allItems: $fullFeed, filteredItems: $filteredFeed)
         }
     }
     

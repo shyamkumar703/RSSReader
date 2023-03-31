@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QueryBuilderSwiftUI
 
 struct Feed: Codable, Identifiable {
     var id: Int
@@ -25,4 +26,32 @@ struct Feed: Codable, Identifiable {
         case checkedAt = "checked_at"
         case nextCheckAt = "next_check_at"
     }
+}
+
+extension Feed: IsComparable {
+    func evaluate(comparator: QueryBuilderSwiftUI.Comparator, against value: any IsComparable) -> Bool {
+        guard let value = value as? Feed else {
+            return false
+        }
+        switch comparator {
+        case .less:
+            return self.title < value.title
+        case .greater:
+            return self.title > value.title
+        case .lessThanOrEqual:
+            return self.title <= value.title
+        case .greaterThanOrEqual:
+            return self.title >= value.title
+        case .equal:
+            return self.title == value.title
+        case .notEqual:
+            return self.title != value.title
+        }
+    }
+    
+    static func createAssociatedViewModel(options: [(any IsComparable)], startingValue: (any IsComparable)?) -> StringComparableViewModel {
+        return StringComparableViewModel(value: startingValue as? String, options: options)
+    }
+    
+    func translateOption() -> any IsComparable { title }
 }

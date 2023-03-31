@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import QueryBuilderSwiftUI
 
 struct FeedResponse: Codable {
     var total: Int
     var entries: [FeedEntry]
 }
 
-class FeedEntry: Codable, Identifiable, Equatable, Hashable, ObservableObject, Comparable {
+final class FeedEntry: Codable, Identifiable, Equatable, Hashable, ObservableObject, Comparable, Queryable {
     enum Status: String, Codable, CaseIterable {
         case read
         case unread
@@ -159,4 +160,74 @@ class FeedEntry: Codable, Identifiable, Equatable, Hashable, ObservableObject, C
     static func < (lhs: FeedEntry, rhs: FeedEntry) -> Bool {
         lhs.date > rhs.date
     }
+}
+
+extension FeedEntry {
+    static var queryableParameters: [PartialKeyPath<FeedEntry>: any IsComparable.Type] = [
+        \.status: Status.self,
+        \.date: Date.self,
+        \.starred: Bool.self,
+        \.feed: Feed.self
+    ]
+    
+    static func stringFor(_ keypath: PartialKeyPath<FeedEntry>) -> String {
+        switch keypath {
+        case \.status: return "Status"
+        case \.date: return "Date"
+        case \.starred: return "Starred"
+        case \.feed: return "Feed"
+        default: return ""
+        }
+    }
+    
+    static func keypathFor(_ string: String) throws -> PartialKeyPath<FeedEntry> {
+        switch string {
+        case "Status": return \.status
+        case "Date": return \.date
+        case "Starred": return \.starred
+        case "Feed": return \.feed
+        default: throw FeedEntryError.invalidKeypathString
+        }
+    }
+    
+    enum FeedEntryError: Error {
+        case invalidKeypathString
+    }
+
+}
+
+extension FeedEntry.Status: IsComparable {
+    static func getValidComparators() -> [QueryBuilderSwiftUI.Comparator] {
+        [.equal, .notEqual]
+    }
+    
+    func evaluate(comparator: QueryBuilderSwiftUI.Comparator, against value: any IsComparable) -> Bool {
+        guard let value = value as? FeedEntry.Status else {
+            return false
+        }
+        switch comparator {
+        case .less:
+            print("Status comparison does not support <, running != instead")
+            return self != value
+        case .greater:
+            print("Status comparsion does not support >, running != instead")
+            return self != value
+        case .lessThanOrEqual:
+            print("Status comparison does not support <=, running == instead")
+            return self == value
+        case .greaterThanOrEqual:
+            print("Status comparison does not support >=, running == instead")
+            return self == value
+        case .equal:
+            return self == value
+        case .notEqual:
+            return self != value
+        }
+    }
+    
+    static func createAssociatedViewModel(options: [(any IsComparable)], startingValue: (any IsComparable)?) -> StringComparableViewModel {
+        return StringComparableViewModel(value: startingValue as? String, options: options)
+    }
+    
+    func translateOption() -> any IsComparable { rawValue }
 }

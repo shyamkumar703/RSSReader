@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct RSSApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var session = SessionManager(dependencies: Dependencies())
     
     var body: some Scene {

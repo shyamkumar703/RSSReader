@@ -19,15 +19,16 @@ extension CategoryFeedView {
             if shouldToggleLoading { withAnimation { isLoading = false } }
         }
         
-        func loadItems(for category: Category?, before date: Date, options: FilterOptions = .all, with session: SessionManager) async {
+        func loadItems(for category: Category?, before date: Date, with session: SessionManager) async {
             guard !isLoading else { return }
             withAnimation { isLoading = true }
-            switch options {
-            case .all, .starred:
-                _ = await session.loadFeedLazy(for: category, before: date)
-            case .unread:
-                _ = await session.loadFeedLazy(for: category, before: date, status: [.unread])
-            }
+//            switch options {
+//            case .all, .starred:
+//                _ = await session.loadFeedLazy(for: category, before: date)
+//            case .unread:
+//                _ = await session.loadFeedLazy(for: category, before: date, status: [.unread])
+//            }
+            _ = await session.loadFeedLazy(for: category, before: date)
             withAnimation { isLoading = false }
         }
     }
