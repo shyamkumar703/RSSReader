@@ -29,6 +29,7 @@ protocol Session {
     
     func markAs(status: FeedEntry.Status, item: FeedEntry, category: Category?) async {
         feedCategoryDictionary[category ?? Category.example]?.first(where: { $0.id == item.id })?.status = status
+        item.status = status
         
         _ = await dependencies.api.call(with: MarkItemRequest(entryIds: [item.id], status: status))
         

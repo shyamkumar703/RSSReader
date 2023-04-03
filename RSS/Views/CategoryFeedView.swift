@@ -77,6 +77,11 @@ struct CategoryFeedView: View {
                 }
             }
         }
+        .onAppear {
+            if let currentFilter, let filteredFeed {
+                self.filteredFeed = QueryBuilderSDK.evaluate(node: currentFilter.1, on: filteredFeed)
+            }
+        }
         .refreshable {
             await viewModel.loadFeed(for: feedCategory, with: session)
             fullFeed = session.feedFor(category: feedCategory)
