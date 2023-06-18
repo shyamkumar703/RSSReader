@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "2303EB74-9351-4F87-909E-E6FD03303E50",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:RSS.xcodeproj",
+          "identifier" : "01052AD72A36809F00AB189F",
+          "name" : "RSSViews"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RSS.xcodeproj",
+        "identifier" : "01052B172A379C4700AB189F",
+        "name" : "RSSViewsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
