@@ -13,9 +13,9 @@ import XCTest
 final class RSSViewsTests: XCTestCase {
     func testCategoriesViewModel_ConsumesCategoriesFromClient() {
         let categories = [
-            RSSCategory(id: 1, title: "All", unreadCount: 20),
+            RSSCategory(id: 1, title: "All", unreadCount: 60),
             RSSCategory(id: 2, title: "Tech", unreadCount: 40),
-            RSSCategory(id: 3, title: "News", unreadCount: 60),
+            RSSCategory(id: 3, title: "News", unreadCount: 20),
             RSSCategory(id: 4, title: "Politics", unreadCount: 0)
         ]
 
@@ -28,12 +28,37 @@ final class RSSViewsTests: XCTestCase {
                 },
                 feedFor: { _ in fatalError() },
                 markAs: { _, _ in fatalError() },
-                toggleStar: { _ in fatalError() }
+                toggleStar: { _ in fatalError() },
+                markCategoryAsRead: { _ in fatalError() }
             ),
             storageClient: .empty
         )
 
         XCTAssertEqual(model.categories.elements, categories)
+    }
+    
+    func testCategoriesWithClashingIdentifiers_DoesntCrash() {
+        let categories = [
+            RSSCategory(id: 1, title: "All", unreadCount: 60),
+            RSSCategory(id: 1, title: "Tech", unreadCount: 40),
+            RSSCategory(id: 3, title: "News", unreadCount: 20),
+            RSSCategory(id: 4, title: "Politics", unreadCount: 0)
+        ]
+
+        let model = CategoriesViewModel(
+            rssClient: RSSClient(
+                categories: {
+                    Just(categories)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+                },
+                feedFor: { _ in fatalError() },
+                markAs: { _, _ in fatalError() },
+                toggleStar: { _ in fatalError() },
+                markCategoryAsRead: { _ in fatalError() }
+            ),
+            storageClient: .empty
+        )
     }
     
     func testCategoriesViewModel_HandlesCategorySelectionCorrectly() {
@@ -64,7 +89,8 @@ final class RSSViewsTests: XCTestCase {
                     .eraseToAnyPublisher()
                 },
                 markAs: { _, _ in fatalError() },
-                toggleStar: { _ in fatalError() }
+                toggleStar: { _ in fatalError() },
+                markCategoryAsRead: { _ in fatalError() }
             ),
             storageClient: .empty
         )
@@ -126,7 +152,8 @@ final class RSSViewsTests: XCTestCase {
                     .eraseToAnyPublisher()
                 },
                 markAs: { _, _ in  markAPICallCount += 1 },
-                toggleStar: { _ in toggleStarAPICallCount += 1 }
+                toggleStar: { _ in toggleStarAPICallCount += 1 },
+                markCategoryAsRead: { _ in fatalError() }
             ),
             storageClient: .empty
         )
@@ -174,5 +201,31 @@ final class RSSViewsTests: XCTestCase {
         default:
             XCTFail()
         }
+    }
+    
+    func testCategoryViewModel_HandlesMarkCategoryAsReadCorrectly() {
+        let categories = [
+            RSSCategory(id: 1, title: "All", unreadCount: 3)
+        ]
+        
+        var markCategoryAsReadCalls = 0
+        let model = CategoriesViewModel(
+            rssClient: .init(
+                categories: {
+                    Just(categories)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                },
+                feedFor: { _ in fatalError() },
+                markAs: { _, _ in fatalError() },
+                toggleStar: { _ in fatalError() },
+                markCategoryAsRead: { _ in markCategoryAsReadCalls += 1 }
+            ),
+            storageClient: .empty
+        )
+        
+        model.markAsReadTapped(id: 1)
+        XCTAssertEqual(markCategoryAsReadCalls, 1)
+        XCTAssertEqual(model.categories[id: 1]?.unreadCount, 0)
     }
 }

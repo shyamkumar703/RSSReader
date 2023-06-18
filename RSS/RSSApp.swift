@@ -11,8 +11,6 @@ import SwiftUI
 
 @main
 struct RSSApp: App {
-    @StateObject var session = SessionManager(dependencies: Dependencies())
-    
     var body: some Scene {
         WindowGroup {
             RSSViews.CategoriesView(model: .init(rssClient: .live, storageClient: .live))
