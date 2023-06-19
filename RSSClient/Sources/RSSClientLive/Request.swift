@@ -87,7 +87,7 @@ extension Request {
     public static var getCategories: Request<[RSSCategory], NoBody> {
         .init(
             method: .GET,
-            path: "categories",
+            path: "categories?counts=true",
             body: NoBody()
         )
     }

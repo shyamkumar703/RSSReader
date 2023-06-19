@@ -10,7 +10,7 @@ import Foundation
 public struct RSSCategory: Codable, Identifiable, Comparable, Hashable {
     public var id: Int
     public var title: String
-    public var unreadCount: Int?
+    public var unreadCount: Int? // total_unread
     
     public init(id: Int, title: String, unreadCount: Int? = 0) {
         self.id = id
@@ -28,6 +28,12 @@ public struct RSSCategory: Codable, Identifiable, Comparable, Hashable {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case unreadCount = "total_unread"
     }
 }
 

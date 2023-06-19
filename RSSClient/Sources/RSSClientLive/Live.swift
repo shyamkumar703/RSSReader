@@ -17,7 +17,7 @@ extension RSSClient {
         var markCategoryAsReadCancellable: AnyCancellable?
         
         return .init(
-            categories: getCategories,
+            categories: GenRequest.getCategories.call,
             feedFor: { getFeedFor(categoryId: $0 ?? 0) },
             markAs: { entries, status in
                 markAsCancellable = GenRequest.mark(entryIds: entries, status: status)
@@ -44,26 +44,6 @@ extension RSSClient {
                     )
             }
         )
-    }
-    
-    private static func getCategories() -> AnyPublisher<[RSSCategory], Error> {
-        let GenRequest = Request<IgnoreResponse, NoBody>.self
-        guard let url = URL(string: "https://api.quicksplitapp.com/rss/categories") else {
-            return Fail(error: RSSError.invalidURL).eraseToAnyPublisher()
-        }
-        
-        guard let authHeader = GenRequest.generateBasicAuthHeader() else {
-            return Fail(error: RSSError.generateAuthFailed).eraseToAnyPublisher()
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.addValue("Basic \(authHeader)", forHTTPHeaderField: "Authorization")
-        
-        return URLSession.DataTaskPublisher(request: urlRequest, session: .shared)
-            .map { data, _ in data }
-            .decode(type: [RSSCategory].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
     }
     
     private static func getFeedFor(categoryId: Int) -> AnyPublisher<FeedResponse, Error> {
