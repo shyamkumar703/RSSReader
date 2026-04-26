@@ -92,17 +92,23 @@ extension Request {
         )
     }
 
-    public static func getFeed(_ id: Int? = nil, offset: Int? = nil) -> Request<FeedResponse, NoBody> {
+    public static func getFeed(_ id: Int? = nil, offset: Int? = nil, filter: FeedFilter = .all) -> Request<FeedResponse, NoBody> {
         var path = "entries?direction=desc&order=published_at"
         if let id {
             path += "&category_id=\(id)"
         }
-        
+
         if let offset {
             path += "&offset=\(offset)"
         }
 
-        return .init(method: .GET, path:  path, body: NoBody())
+        switch filter {
+        case .all: break
+        case .unread: path += "&status=unread"
+        case .starred: path += "&starred=true"
+        }
+
+        return .init(method: .GET, path: path, body: NoBody())
     }
     
     struct MarkItemRequestBody: Codable {

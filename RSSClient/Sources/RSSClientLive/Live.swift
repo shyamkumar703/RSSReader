@@ -18,7 +18,7 @@ extension RSSClient {
         
         return .init(
             categories: GenRequest.getCategories.call,
-            feedFor: { catId, offset in getFeedFor(categoryId: catId ?? 0, offset: offset) },
+            feedFor: { catId, offset, filter in getFeedFor(categoryId: catId ?? 0, offset: offset, filter: filter) },
             markAs: { entries, status in
                 markAsCancellable = GenRequest.mark(entryIds: entries, status: status)
                     .call()
@@ -46,7 +46,7 @@ extension RSSClient {
         )
     }
     
-    private static func getFeedFor(categoryId: Int, offset: Int) -> AnyPublisher<FeedResponse, Error> {
-        Request<IgnoreResponse, NoBody>.getFeed(categoryId, offset: offset).call()
+    private static func getFeedFor(categoryId: Int, offset: Int, filter: FeedFilter) -> AnyPublisher<FeedResponse, Error> {
+        Request<IgnoreResponse, NoBody>.getFeed(categoryId, offset: offset, filter: filter).call()
     }
 }

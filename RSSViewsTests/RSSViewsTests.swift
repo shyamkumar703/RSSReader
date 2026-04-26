@@ -26,7 +26,7 @@ final class RSSViewsTests: XCTestCase {
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
                 },
-                feedFor: { _, _ in fatalError() },
+                feedFor: { _, _, _ in fatalError() },
                 markAs: { _, _ in fatalError() },
                 toggleStar: { _ in fatalError() },
                 markCategoryAsRead: { _ in fatalError() }
@@ -52,7 +52,7 @@ final class RSSViewsTests: XCTestCase {
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
                 },
-                feedFor: { _, _ in fatalError() },
+                feedFor: { _, _, _ in fatalError() },
                 markAs: { _, _ in fatalError() },
                 toggleStar: { _ in fatalError() },
                 markCategoryAsRead: { _ in fatalError() }
@@ -73,7 +73,7 @@ final class RSSViewsTests: XCTestCase {
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
                 },
-                feedFor: { _, _ in
+                feedFor: { _, _, _ in
                     Just(
                         FeedResponse(
                             total: 4,
@@ -136,7 +136,7 @@ final class RSSViewsTests: XCTestCase {
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
                 },
-                feedFor: { _, _ in
+                feedFor: { _, _, _ in
                     Just(
                         FeedResponse(
                             total: 4,
@@ -216,7 +216,7 @@ final class RSSViewsTests: XCTestCase {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 },
-                feedFor: { _, _ in fatalError() },
+                feedFor: { _, _, _ in fatalError() },
                 markAs: { _, _ in fatalError() },
                 toggleStar: { _ in fatalError() },
                 markCategoryAsRead: { _ in markCategoryAsReadCalls += 1 }

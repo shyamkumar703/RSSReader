@@ -45,17 +45,17 @@ public class CategoryFeedViewModel: ObservableObject {
     }
     
     @Published
-    var filter: FilterOption = .all
-    
+    var filter: FeedFilter = .all {
+        didSet {
+            guard oldValue != filter else { return }
+            refresh()
+        }
+    }
+
     @Published
     var searchText: String = ""
-    
-    enum FilterOption: String, CaseIterable {
-        case unread = "Unread"
-        case starred = "Starred"
-        case all = "All"
-    }
-    
+
+
     var navigationTitle: String {
         category?.title ?? "All"
     }
@@ -182,7 +182,8 @@ public class CategoryFeedViewModel: ObservableObject {
     
     func refresh() {
         currentOffset = 0
-        rssClientCancellable = rssClient.feedFor(category?.id, 0).sink(
+        loadMoreCancellable = nil
+        rssClientCancellable = rssClient.feedFor(category?.id, 0, filter).sink(
             receiveCompletion: { _ in },
             receiveValue: { [weak self] response in
                 guard let self else { return }
@@ -199,7 +200,7 @@ public class CategoryFeedViewModel: ObservableObject {
     func loadMoreIfNeeded() {
         guard !isLoadingMore, hasMore else { return }
         isLoadingMore = true
-        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset).sink(
+        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset, filter).sink(
             receiveCompletion: { [weak self] completion in
                 self?.isLoadingMore = false
                 if case .failure = completion { self?.isPartial = true }
@@ -365,7 +366,7 @@ public struct CategoryFeedView: View {
         }
         .toolbar {
             Picker(model.filter.rawValue, selection: $model.filter) {
-                ForEach(CategoryFeedViewModel.FilterOption.allCases, id: \.self) { Text($0.rawValue) }
+                ForEach(FeedFilter.allCases, id: \.self) { Text($0.rawValue) }
             }
         }
         .searchable(text: $model.searchText, placement: .navigationBarDrawer(displayMode: .always))

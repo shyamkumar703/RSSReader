@@ -9,7 +9,7 @@ import Foundation
 
 public struct RSSClient {
     public var categories: () -> AnyPublisher<[RSSCategory], Error>
-    public var feedFor: (Int?, Int) -> AnyPublisher<FeedResponse, Error>
+    public var feedFor: (Int?, Int, FeedFilter) -> AnyPublisher<FeedResponse, Error>
     // Fire and forget
     /// entryIds, status
     public var markAs: ([Int], FeedEntry.Status) -> Void
@@ -22,7 +22,7 @@ public struct RSSClient {
     
     public init(
         categories: @escaping () -> AnyPublisher<[RSSCategory], Error>,
-        feedFor: @escaping (Int?, Int) -> AnyPublisher<FeedResponse, Error>,
+        feedFor: @escaping (Int?, Int, FeedFilter) -> AnyPublisher<FeedResponse, Error>,
         markAs: @escaping ([Int], FeedEntry.Status) -> Void,
         toggleStar: @escaping (Int) -> Void,
         markCategoryAsRead: @escaping (Int) -> Void

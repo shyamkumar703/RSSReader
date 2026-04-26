@@ -37,6 +37,12 @@ public struct RSSCategory: Codable, Identifiable, Comparable, Hashable {
     }
 }
 
+public enum FeedFilter: String, CaseIterable, Hashable {
+    case all = "All"
+    case unread = "Unread"
+    case starred = "Starred"
+}
+
 public struct FeedResponse: Codable, Identifiable, Equatable, Hashable {
     public var id: Int {
         categoryId ?? UUID().uuidString.hashValue
