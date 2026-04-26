@@ -21,7 +21,7 @@ extension RSSClient {
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
             },
-            feedFor: { _, _, _ in
+            feedFor: { _, _, _, _ in
                 Just(
                     FeedResponse(
                         total: 4,

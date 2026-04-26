@@ -92,7 +92,12 @@ extension Request {
         )
     }
 
-    public static func getFeed(_ id: Int? = nil, offset: Int? = nil, filter: FeedFilter = .all) -> Request<FeedResponse, NoBody> {
+    public static func getFeed(
+        _ id: Int? = nil,
+        offset: Int? = nil,
+        filter: FeedFilter = .all,
+        search: String = ""
+    ) -> Request<FeedResponse, NoBody> {
         var path = "entries?direction=desc&order=published_at"
         if let id {
             path += "&category_id=\(id)"
@@ -106,6 +111,11 @@ extension Request {
         case .all: break
         case .unread: path += "&status=unread"
         case .starred: path += "&starred=true"
+        }
+
+        if !search.isEmpty,
+           let encoded = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            path += "&search=\(encoded)"
         }
 
         return .init(method: .GET, path: path, body: NoBody())

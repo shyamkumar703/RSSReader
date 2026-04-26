@@ -63,6 +63,7 @@ public class CategoryFeedViewModel: ObservableObject {
     // MARK: - Cancellables
     var rssClientCancellable: AnyCancellable?
     var loadMoreCancellable: AnyCancellable?
+    var searchCancellable: AnyCancellable?
     
     public init(
         rssClient: RSSClient,
@@ -82,8 +83,14 @@ public class CategoryFeedViewModel: ObservableObject {
             self.feed = .init(uniqueElements: storageClient.getFeedFor(categoryId: category.id)?.entries.unique() ?? [])
         }
         self.refresh()
-        
+
         self.bind()
+
+        self.searchCancellable = $searchText
+            .dropFirst()
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] _ in self?.refresh() }
     }
     
     private func bind() {
@@ -164,26 +171,16 @@ public class CategoryFeedViewModel: ObservableObject {
     
     func getFeed() -> IdentifiedArrayOf<FeedEntry> {
         switch filter {
-        case .all: return entriesMatchingSearchTerm(feed)
-        case .unread: return entriesMatchingSearchTerm(feed.filter({ $0.status == .unread }))
-        case .starred: return entriesMatchingSearchTerm(feed.filter({ $0.starred }))
-        }
-    }
-    
-    private func entriesMatchingSearchTerm(_ feed: IdentifiedArrayOf<FeedEntry>) -> IdentifiedArrayOf<FeedEntry> {
-        if searchText.isEmpty {
-            return feed
-        } else {
-            return feed.filter({
-                $0.author.contains(searchText) || $0.feed.title.contains(searchText) || $0.title.contains(searchText)
-            })
+        case .all: return feed
+        case .unread: return feed.filter { $0.status == .unread }
+        case .starred: return feed.filter { $0.starred }
         }
     }
     
     func refresh() {
         currentOffset = 0
         loadMoreCancellable = nil
-        rssClientCancellable = rssClient.feedFor(category?.id, 0, filter).sink(
+        rssClientCancellable = rssClient.feedFor(category?.id, 0, filter, searchText).sink(
             receiveCompletion: { _ in },
             receiveValue: { [weak self] response in
                 guard let self else { return }
@@ -200,7 +197,7 @@ public class CategoryFeedViewModel: ObservableObject {
     func loadMoreIfNeeded() {
         guard !isLoadingMore, hasMore else { return }
         isLoadingMore = true
-        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset, filter).sink(
+        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset, filter, searchText).sink(
             receiveCompletion: { [weak self] completion in
                 self?.isLoadingMore = false
                 if case .failure = completion { self?.isPartial = true }
