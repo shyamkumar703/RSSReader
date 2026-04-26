@@ -45,7 +45,7 @@ public class CategoryFeedViewModel: ObservableObject {
     }
     
     @Published
-    var filter: FeedFilter = .all {
+    var filter: FeedFilter = .unread {
         didSet {
             guard oldValue != filter else { return }
             refresh()
@@ -362,8 +362,18 @@ public struct CategoryFeedView: View {
             ArticleView(model: articleVM)
         }
         .toolbar {
-            Picker(model.filter.rawValue, selection: $model.filter) {
-                ForEach(FeedFilter.allCases, id: \.self) { Text($0.rawValue) }
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Picker("Filter", selection: $model.filter) {
+                        ForEach(FeedFilter.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    }
+                } label: {
+                    ZStack {
+                        Text(FeedFilter.allCases.map(\.rawValue).max(by: { $0.count < $1.count }) ?? "")
+                            .hidden()
+                        Text(model.filter.rawValue)
+                    }
+                }
             }
         }
         .searchable(text: $model.searchText, placement: .navigationBarDrawer(displayMode: .always))
