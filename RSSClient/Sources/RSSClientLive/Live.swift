@@ -74,21 +74,22 @@ extension RSSClient {
             publishers.append(GenRequest.getFeed(categoryId, offset: offset).call())
         }
 
-        Publishers.MergeMany(publishers)
-            .map { $0.entries }
-            .collect()
-            .sink(
-                receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        publisher.send(completion: .failure(error))
-                    }
-                },
-                receiveValue: { feedEntries in
-                    let allEntries = (feedResponse.entries + feedEntries.flatMap { $0 })
-                        .sorted { $0.date > $1.date }
-                    publisher.send(FeedResponse(total: feedResponse.total, entries: allEntries))
-                }
-            )
-            .store(in: &bag)
+        Publishers.MergeMany(publishers.map { page in
+            page
+                .map { Result<[FeedEntry], Error>.success($0.entries) }
+                .catch { Just(Result<[FeedEntry], Error>.failure($0)).setFailureType(to: Error.self) }
+                .eraseToAnyPublisher()
+        })
+        .collect()
+        .sink(
+            receiveCompletion: { _ in },
+            receiveValue: { results in
+                let isPartial = results.contains { if case .failure = $0 { return true }; return false }
+                let allEntries = (feedResponse.entries + results.compactMap { try? $0.get() }.flatMap { $0 })
+                    .sorted { $0.date > $1.date }
+                publisher.send(FeedResponse(total: feedResponse.total, entries: allEntries, isPartial: isPartial))
+            }
+        )
+        .store(in: &bag)
     }
 }

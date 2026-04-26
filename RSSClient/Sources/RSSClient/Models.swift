@@ -41,18 +41,26 @@ public struct FeedResponse: Codable, Identifiable, Equatable, Hashable {
     public var id: Int {
         categoryId ?? UUID().uuidString.hashValue
     }
-    
+
     public var total: Int
     public var entries: [FeedEntry]
     public var categoryId: Int?
-    
-    public init(total: Int, entries: [FeedEntry]) {
+    public var isPartial: Bool = false
+
+    public init(total: Int, entries: [FeedEntry], isPartial: Bool = false) {
         self.total = total
         self.entries = entries
+        self.isPartial = isPartial
     }
-    
+
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case total
+        case entries
+        case categoryId = "category_id"
     }
 }
 

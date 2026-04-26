@@ -21,6 +21,9 @@ public class CategoryFeedViewModel: ObservableObject {
 
     @Published
     var feed = IdentifiedArrayOf<FeedEntry>()
+
+    @Published
+    var isPartial = false
     
     @Published
     var destination: Destination? {
@@ -173,6 +176,7 @@ public class CategoryFeedViewModel: ObservableObject {
             receiveCompletion: { _ in },
             receiveValue: { [weak self] feedResponse in
                 self?.feed = IdentifiedArray(uniqueElements: feedResponse.entries.unique())
+                self?.isPartial = feedResponse.isPartial
                 var feedResponseCopy = feedResponse
                 self?.storageClient.updateFeed(for: self?.category?.id ?? 0, feedResponse: &feedResponseCopy)
             }
@@ -189,6 +193,20 @@ public struct CategoryFeedView: View {
     }
     
     public var body: some View {
+        if model.isPartial {
+            HStack(spacing: 8) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.orange)
+                Text("Some articles couldn't be loaded. Pull to refresh.")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(.secondarySystemBackground))
+        }
+
         List {
             ForEach(model.getFeed()) { feedItem in
                 HStack {
