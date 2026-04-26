@@ -63,30 +63,32 @@ extension RSSClient {
     
     private static func handleInitialFeedResponse(categoryId: Int, feedResponse: FeedResponse, publisher: PassthroughSubject<FeedResponse, Error>) {
         let GenRequest = Request<IgnoreResponse, NoBody>.self
-        if feedResponse.entries.count < feedResponse.total {
-            let requestsNeeded = feedResponse.entries.count / 10
-            var publishers = [AnyPublisher<FeedResponse, Error>]()
-            for offsetMultiple in 1...requestsNeeded {
-                publishers.append(GenRequest.getFeed(categoryId, offset: offsetMultiple * 100).call())
-            }
-            
-            Publishers.MergeMany(publishers)
-                .map { $0.entries }
-                .collect()
-                .sink(
-                    receiveCompletion: { _ in },
-                    receiveValue: { feedEntries in
-                        let fullEntries = feedResponse.entries + feedEntries.flatMap({ $0 })
-                        publisher.send(
-                            FeedResponse(
-                                total: feedResponse.total,
-                                entries: fullEntries
-                            )
-                        )
-                        
-                    }
-                )
-                .store(in: &bag)
+        let remaining = feedResponse.total - feedResponse.entries.count
+        guard remaining > 0 else { return }
+
+        let pageSize = 100
+        let requestsNeeded = Int(ceil(Double(remaining) / Double(pageSize)))
+        var publishers = [AnyPublisher<FeedResponse, Error>]()
+        for page in 1...requestsNeeded {
+            let offset = feedResponse.entries.count + (page - 1) * pageSize
+            publishers.append(GenRequest.getFeed(categoryId, offset: offset).call())
         }
+
+        Publishers.MergeMany(publishers)
+            .map { $0.entries }
+            .collect()
+            .sink(
+                receiveCompletion: { completion in
+                    if case .failure(let error) = completion {
+                        publisher.send(completion: .failure(error))
+                    }
+                },
+                receiveValue: { feedEntries in
+                    let allEntries = (feedResponse.entries + feedEntries.flatMap { $0 })
+                        .sorted { $0.date > $1.date }
+                    publisher.send(FeedResponse(total: feedResponse.total, entries: allEntries))
+                }
+            )
+            .store(in: &bag)
     }
 }
