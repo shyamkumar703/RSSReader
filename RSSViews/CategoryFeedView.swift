@@ -24,7 +24,15 @@ public class CategoryFeedViewModel: ObservableObject {
 
     @Published
     var isPartial = false
-    
+
+    @Published
+    var isLoadingMore = false
+
+    private var currentOffset = 0
+    private var totalCount = 0
+
+    var hasMore: Bool { feed.count < totalCount }
+
     @Published
     var destination: Destination? {
         didSet {
@@ -54,6 +62,7 @@ public class CategoryFeedViewModel: ObservableObject {
     
     // MARK: - Cancellables
     var rssClientCancellable: AnyCancellable?
+    var loadMoreCancellable: AnyCancellable?
     
     public init(
         rssClient: RSSClient,
@@ -172,13 +181,37 @@ public class CategoryFeedViewModel: ObservableObject {
     }
     
     func refresh() {
-        self.rssClientCancellable = self.rssClient.feedFor(self.category?.id).sink(
+        currentOffset = 0
+        rssClientCancellable = rssClient.feedFor(category?.id, 0).sink(
             receiveCompletion: { _ in },
-            receiveValue: { [weak self] feedResponse in
-                self?.feed = IdentifiedArray(uniqueElements: feedResponse.entries.unique())
-                self?.isPartial = feedResponse.isPartial
-                var feedResponseCopy = feedResponse
-                self?.storageClient.updateFeed(for: self?.category?.id ?? 0, feedResponse: &feedResponseCopy)
+            receiveValue: { [weak self] response in
+                guard let self else { return }
+                self.feed = IdentifiedArray(uniqueElements: response.entries.unique())
+                self.totalCount = response.total
+                self.currentOffset = response.entries.count
+                self.isPartial = false
+                var copy = response
+                self.storageClient.updateFeed(for: self.category?.id ?? 0, feedResponse: &copy)
+            }
+        )
+    }
+
+    func loadMoreIfNeeded() {
+        guard !isLoadingMore, hasMore else { return }
+        isLoadingMore = true
+        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset).sink(
+            receiveCompletion: { [weak self] completion in
+                self?.isLoadingMore = false
+                if case .failure = completion { self?.isPartial = true }
+            },
+            receiveValue: { [weak self] response in
+                guard let self else { return }
+                let existingIds = self.feed.ids
+                let toAppend = response.entries.filter { !existingIds.contains($0.id) }
+                self.feed.append(contentsOf: toAppend)
+                self.currentOffset += response.entries.count
+                self.totalCount = response.total
+                self.isPartial = false
             }
         )
     }
@@ -257,6 +290,12 @@ public struct CategoryFeedView: View {
                           .foregroundColor(Color(UIColor.tertiaryLabel))
                 }
                 .contentShape(Rectangle())
+                .onAppear {
+                    if let idx = model.feed.index(id: feedItem.id),
+                       idx >= model.feed.count - 5 {
+                        model.loadMoreIfNeeded()
+                    }
+                }
                 .onTapGesture {
                     model.feedEntryTapped(id: feedItem.id)
                 }
