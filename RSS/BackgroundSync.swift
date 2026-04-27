@@ -10,7 +10,7 @@ import RSSClientLive
 import RSSViews
 
 enum BackgroundSync {
-    static let taskIdentifier = "com.shyamkumar.rssreader.refresh"
+    static let taskIdentifier = "com.shyamkumar.RSS.refresh"
 
     private static var bag = Set<AnyCancellable>()
 
