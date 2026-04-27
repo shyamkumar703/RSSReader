@@ -11,9 +11,15 @@ import SwiftUI
 
 @main
 struct RSSApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @Environment(\.scenePhase) var scenePhase
+
     var body: some Scene {
         WindowGroup {
             RSSViews.CategoriesView(model: .init(rssClient: .live, storageClient: .live))
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .background { BackgroundSync.schedule() }
         }
     }
 }
