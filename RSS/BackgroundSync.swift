@@ -29,15 +29,22 @@ enum BackgroundSync {
     private static func handle(task: BGAppRefreshTask) {
         schedule()
 
-        let client = RSSClient.live
-        var storage = StorageClient.live
         var completed = false
-
         task.expirationHandler = {
             guard !completed else { return }
             bag.removeAll()
             task.setTaskCompleted(success: false)
         }
+
+        performSync { success in
+            completed = true
+            task.setTaskCompleted(success: success)
+        }
+    }
+
+    static func performSync(onCompletion: @escaping (Bool) -> Void) {
+        let client = RSSClient.live
+        var storage = StorageClient.live
 
         Publishers.Zip(
             client.categories(),
@@ -45,11 +52,10 @@ enum BackgroundSync {
         )
         .sink(
             receiveCompletion: { completion in
-                completed = true
                 if case .failure = completion {
-                    task.setTaskCompleted(success: false)
+                    onCompletion(false)
                 } else {
-                    task.setTaskCompleted(success: true)
+                    onCompletion(true)
                 }
             },
             receiveValue: { categories, feedResponse in
