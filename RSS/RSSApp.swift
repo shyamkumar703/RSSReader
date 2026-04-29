@@ -19,6 +19,7 @@ struct RSSApp: App {
             RSSViews.CategoriesView(model: .init(rssClient: .live, storageClient: .live))
         }
         .onChange(of: scenePhase) { _, phase in
+            print("[scenePhase] new phase=\(phase)")
             if phase == .background { BackgroundSync.schedule() }
         }
     }

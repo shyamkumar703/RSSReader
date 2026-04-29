@@ -218,7 +218,8 @@ public class CategoryFeedViewModel: ObservableObject {
 public struct CategoryFeedView: View {
     @ObservedObject var model: CategoryFeedViewModel
     @Environment(\.refresh) var refresh
-    
+    @Environment(\.scenePhase) private var scenePhase
+
     public init(model: CategoryFeedViewModel) {
         self.model = model
     }
@@ -377,6 +378,11 @@ public struct CategoryFeedView: View {
             }
         }
         .searchable(text: $model.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if oldPhase == .background && newPhase == .active {
+                model.refresh()
+            }
+        }
     }
 }
 

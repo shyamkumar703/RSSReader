@@ -107,11 +107,12 @@ public class CategoriesViewModel: ObservableObject {
 public struct CategoriesView: View {
     @ObservedObject var model: CategoriesViewModel
     @Environment(\.refresh) var refresh
-    
+    @Environment(\.scenePhase) private var scenePhase
+
     public init(model: CategoriesViewModel) {
         self.model = model
     }
-    
+
     public var body: some View {
         NavigationStack {
             List {
@@ -163,6 +164,11 @@ public struct CategoriesView: View {
                 case: /CategoriesViewModel.Destination.feedView
             ) { $model in
                 CategoryFeedView(model: model)
+            }
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if oldPhase == .background && newPhase == .active {
+                model.refresh()
             }
         }
     }
