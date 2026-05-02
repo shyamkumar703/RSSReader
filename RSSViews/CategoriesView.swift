@@ -21,6 +21,9 @@ public class CategoriesViewModel: ObservableObject {
     @Published
     var destination: Destination? = nil {
         didSet {
+            if oldValue != nil && destination == nil {
+                self.refresh()
+            }
             self.bind()
         }
     }
@@ -110,6 +113,7 @@ public struct CategoriesView: View {
     @ObservedObject var model: CategoriesViewModel
     @Environment(\.refresh) var refresh
     @Environment(\.scenePhase) private var scenePhase
+    @State private var wasInBackground = false
 
     public init(model: CategoriesViewModel) {
         self.model = model
@@ -168,8 +172,11 @@ public struct CategoriesView: View {
                 CategoryFeedView(model: model)
             }
         }
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            if oldPhase == .background && newPhase == .active {
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .background {
+                wasInBackground = true
+            } else if newPhase == .active && wasInBackground {
+                wasInBackground = false
                 model.refresh()
             }
         }
