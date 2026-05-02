@@ -32,15 +32,15 @@ public class CategoriesViewModel: ObservableObject {
         self.rssClient = rssClient
         self.storageClient = storageClient
         self.destination = destination
-        // TODO: - refactor and test
-        self.categories = .init(uniqueElements: storageClient.getAllCategories().elements.sorted(by: { lhs, rhs in
-            guard let lhsUnread = lhs.unreadCount,
-                  let rhsUnread = rhs.unreadCount else { return true }
-            return lhsUnread > rhsUnread
-        }).unique())
         self.refresh()
-        
+
         self.bind()
+    }
+
+    private static func sortByUnread(_ lhs: RSSCategory, _ rhs: RSSCategory) -> Bool {
+        guard let lhsUnread = lhs.unreadCount,
+              let rhsUnread = rhs.unreadCount else { return true }
+        return lhsUnread > rhsUnread
     }
     
     func markAsReadTapped(id: Int) {
@@ -60,15 +60,17 @@ public class CategoriesViewModel: ObservableObject {
     }
     
     func refresh() {
+        // Show whatever's on disk first (may include BG sync's writes) so the
+        // UI reflects the latest known state immediately, then hit the network.
+        let cached = storageClient.getAllCategories().elements.sorted(by: Self.sortByUnread).unique()
+        self.categories = IdentifiedArray(uniqueElements: cached)
+
         self.rssClientCancellable = rssClient.categories()
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] categories in
-                    let sortedCategories = categories.sorted(by: { lhs, rhs in
-                        guard let lhsUnread = lhs.unreadCount,
-                              let rhsUnread = rhs.unreadCount else { return true }
-                        return lhsUnread > rhsUnread
-                    })
+                    let sortedCategories = categories.sorted(by: Self.sortByUnread)
                     self?.categories = IdentifiedArray(uniqueElements: sortedCategories.unique())
                     self?.storageClient.updateCategories(categories)
                 }

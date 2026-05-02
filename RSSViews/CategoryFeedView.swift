@@ -79,9 +79,6 @@ public class CategoryFeedViewModel: ObservableObject {
         self.destination = destination
         if let onArticleMarkedAsRead { self.onArticleMarkedAsRead = onArticleMarkedAsRead }
         if let onArticleMarkedAsUnread { self.onArticleMarkedAsUnread = onArticleMarkedAsUnread }
-        if let category {
-            self.feed = .init(uniqueElements: storageClient.getFeedFor(categoryId: category.id)?.entries.unique() ?? [])
-        }
         self.refresh()
 
         self.bind()
@@ -180,38 +177,52 @@ public class CategoryFeedViewModel: ObservableObject {
     func refresh() {
         currentOffset = 0
         loadMoreCancellable = nil
-        rssClientCancellable = rssClient.feedFor(category?.id, 0, filter, searchText).sink(
-            receiveCompletion: { _ in },
-            receiveValue: { [weak self] response in
-                guard let self else { return }
-                self.feed = IdentifiedArray(uniqueElements: response.entries.unique())
-                self.totalCount = response.total
-                self.currentOffset = response.entries.count
-                self.isPartial = false
-                var copy = response
-                self.storageClient.updateFeed(for: self.category?.id ?? 0, feedResponse: &copy)
-            }
-        )
+
+        // Show whatever's on disk immediately (may include BG sync's writes).
+        // Only meaningful when the filter/search match what was cached
+        // (storage caches by category id only). Stale-but-fast > spinner.
+        if let cached = storageClient.getFeedFor(categoryId: category?.id ?? 0) {
+            self.feed = IdentifiedArray(uniqueElements: cached.entries.unique())
+            self.totalCount = cached.total
+            self.currentOffset = cached.entries.count
+        }
+
+        rssClientCancellable = rssClient.feedFor(category?.id, 0, filter, searchText)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] response in
+                    guard let self else { return }
+                    self.feed = IdentifiedArray(uniqueElements: response.entries.unique())
+                    self.totalCount = response.total
+                    self.currentOffset = response.entries.count
+                    self.isPartial = false
+                    var copy = response
+                    self.storageClient.updateFeed(for: self.category?.id ?? 0, feedResponse: &copy)
+                }
+            )
     }
 
     func loadMoreIfNeeded() {
         guard !isLoadingMore, hasMore else { return }
         isLoadingMore = true
-        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset, filter, searchText).sink(
-            receiveCompletion: { [weak self] completion in
-                self?.isLoadingMore = false
-                if case .failure = completion { self?.isPartial = true }
-            },
-            receiveValue: { [weak self] response in
-                guard let self else { return }
-                let existingIds = self.feed.ids
-                let toAppend = response.entries.filter { !existingIds.contains($0.id) }
-                self.feed.append(contentsOf: toAppend)
-                self.currentOffset += response.entries.count
-                self.totalCount = response.total
-                self.isPartial = false
-            }
-        )
+        loadMoreCancellable = rssClient.feedFor(category?.id, currentOffset, filter, searchText)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    self?.isLoadingMore = false
+                    if case .failure = completion { self?.isPartial = true }
+                },
+                receiveValue: { [weak self] response in
+                    guard let self else { return }
+                    let existingIds = self.feed.ids
+                    let toAppend = response.entries.filter { !existingIds.contains($0.id) }
+                    self.feed.append(contentsOf: toAppend)
+                    self.currentOffset += response.entries.count
+                    self.totalCount = response.total
+                    self.isPartial = false
+                }
+            )
     }
 }
 
